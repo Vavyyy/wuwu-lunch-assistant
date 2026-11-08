@@ -9,7 +9,7 @@
 ## 在线演示
 
 - Demo：[https://stellular-tulumba-e85e05.netlify.app](https://stellular-tulumba-e85e05.netlify.app)
-- 当前部署启用了访问密码，密码由项目所有者单独提供。
+- 当前站点可直接通过 HTTPS 访问。
 - 页面已配置 `noindex`，不会主动进入搜索引擎索引。
 
 ## 核心问题
