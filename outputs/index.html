@@ -1,0 +1,4428 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffd62b">
+  <title>午午在线 · 今天午饭吃什么</title>
+  <style>
+    :root {
+      --yellow: #ffd62b;
+      --yellow-strong: #ffc400;
+      --yellow-soft: #fff5b8;
+      --ink: #20211d;
+      --ink-soft: #6f7269;
+      --paper: #f6f5ef;
+      --card: #ffffff;
+      --line: #e8e7df;
+      --orange: #ff6328;
+      --orange-soft: #fff0e8;
+      --green: #40745d;
+      --green-soft: #edf6ef;
+      --red: #c94732;
+      --shadow: 0 12px 36px rgba(32, 33, 29, .09);
+      --font: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+      --font-num: "Avenir Next", "DIN Alternate", "Arial Narrow", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      background: #e6e8e2;
+    }
+
+    body {
+      min-height: 100dvh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      color: var(--ink);
+      font-family: var(--font);
+      background:
+        radial-gradient(circle at 16% 18%, rgba(255, 255, 255, .72) 0 1px, transparent 1.5px) 0 0 / 17px 17px,
+        #e6e8e2;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    button:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid rgba(32, 33, 29, .84);
+      outline-offset: 3px;
+    }
+
+    button,
+    summary {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .phone {
+      position: relative;
+      width: min(390px, calc(100vw - 24px));
+      height: min(844px, calc(100dvh - 32px));
+      overflow: hidden;
+      background: var(--paper);
+      border: 1px solid rgba(32, 33, 29, .09);
+      border-radius: 32px;
+      box-shadow: 0 30px 80px rgba(46, 51, 42, .19), 0 2px 10px rgba(46, 51, 42, .08);
+      isolation: isolate;
+    }
+
+    .app-screen {
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior-y: contain;
+      padding-bottom: 106px;
+      scrollbar-width: none;
+    }
+
+    .app-screen::-webkit-scrollbar,
+    .sheet-body::-webkit-scrollbar {
+      display: none;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .platform-home {
+      position: absolute;
+      z-index: 30;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: #f3f3ef;
+    }
+
+    .platform-scroll {
+      flex: 1;
+      overflow-y: auto;
+      overscroll-behavior-y: contain;
+      padding-bottom: 92px;
+      scrollbar-width: none;
+    }
+
+    .platform-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .platform-head {
+      padding: 0 16px 20px;
+      background: var(--yellow);
+      border-radius: 0 0 24px 24px;
+    }
+
+    .platform-status {
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-num);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .platform-topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .platform-brand {
+      display: flex;
+      align-items: baseline;
+      gap: 7px;
+      font-size: 19px;
+      font-weight: 900;
+      letter-spacing: -.04em;
+    }
+
+    .platform-brand small {
+      color: rgba(32, 33, 29, .58);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .04em;
+    }
+
+    .platform-location {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      max-width: 144px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .5);
+      font-size: 10.5px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .platform-location .icon {
+      width: 12px;
+      height: 12px;
+    }
+
+    .platform-search {
+      min-height: 41px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 13px;
+      padding: 0 6px 0 12px;
+      border: 1.5px solid var(--ink);
+      border-radius: 9px;
+      background: #fff;
+      box-shadow: 0 3px 0 rgba(32, 33, 29, .12);
+    }
+
+    .platform-search .icon {
+      width: 17px;
+      height: 17px;
+      color: #777a70;
+    }
+
+    .platform-search span {
+      flex: 1;
+      color: #8a8d84;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .platform-search b {
+      display: inline-flex;
+      align-items: center;
+      min-height: 31px;
+      padding: 0 12px;
+      border-radius: 7px;
+      background: var(--yellow);
+      font-size: 10.5px;
+      font-weight: 800;
+    }
+
+    .platform-tabs {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-top: 12px;
+      font-size: 11px;
+      font-weight: 650;
+      color: rgba(32, 33, 29, .55);
+    }
+
+    .platform-tabs .active {
+      position: relative;
+      color: var(--ink);
+      font-weight: 850;
+    }
+
+    .platform-tabs .active::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -7px;
+      width: 14px;
+      height: 3px;
+      transform: translateX(-50%);
+      border-radius: 99px;
+      background: var(--ink);
+    }
+
+    .platform-content {
+      padding: 13px 14px 0;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      padding: 13px 9px;
+      border-radius: 9px;
+      background: #fff;
+      box-shadow: 0 6px 20px rgba(32, 33, 29, .05);
+    }
+
+    .category-item {
+      display: grid;
+      place-items: center;
+      gap: 6px;
+      min-width: 0;
+      font-size: 9.5px;
+      font-weight: 650;
+      text-align: center;
+    }
+
+    .category-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: var(--ink);
+      background: var(--yellow-soft);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .category-item:nth-child(2) .category-icon { background: #ffe9db; }
+    .category-item:nth-child(3) .category-icon { background: #e8f3e5; }
+    .category-item:nth-child(4) .category-icon { background: #fff0bf; }
+    .category-item:nth-child(5) .category-icon { background: #e8eef9; }
+
+    .platform-banner {
+      position: relative;
+      min-height: 94px;
+      display: flex;
+      align-items: center;
+      margin-top: 12px;
+      overflow: hidden;
+      padding: 16px;
+      border-radius: 9px;
+      background: #fff0db;
+    }
+
+    .platform-banner::after {
+      content: "";
+      position: absolute;
+      right: 20px;
+      width: 84px;
+      height: 84px;
+      border: 18px solid #fff8ec;
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 1px rgba(32, 33, 29, .06);
+    }
+
+    .platform-banner-copy {
+      position: relative;
+      z-index: 1;
+    }
+
+    .platform-banner-copy small {
+      display: block;
+      margin-bottom: 5px;
+      color: #946631;
+      font-size: 9.5px;
+      font-weight: 700;
+    }
+
+    .platform-banner-copy strong {
+      display: block;
+      font-size: 19px;
+      line-height: 1.25;
+      letter-spacing: -.03em;
+      font-weight: 900;
+    }
+
+    .platform-banner-copy span {
+      display: block;
+      margin-top: 5px;
+      color: #795b39;
+      font-size: 10px;
+      font-weight: 550;
+    }
+
+    .platform-bowl {
+      position: absolute;
+      z-index: 1;
+      right: 30px;
+      bottom: 17px;
+      width: 54px;
+      height: 29px;
+      border: 3px solid #5c4028;
+      border-top: 0;
+      border-radius: 0 0 28px 28px;
+      background: #ffd791;
+    }
+
+    .platform-bowl::before,
+    .platform-bowl::after {
+      content: "";
+      position: absolute;
+      bottom: 24px;
+      width: 3px;
+      height: 22px;
+      border-radius: 99px;
+      background: #a56e39;
+    }
+
+    .platform-bowl::before {
+      left: 16px;
+      box-shadow: 10px 3px 0 #a56e39;
+      transform: rotate(-6deg);
+    }
+
+    .platform-bowl::after {
+      right: 10px;
+      transform: rotate(8deg);
+    }
+
+    .wow-entry {
+      position: relative;
+      width: 100%;
+      min-height: 96px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin-top: 12px;
+      padding: 13px 13px 13px 14px;
+      overflow: visible;
+      border: 1px solid rgba(32, 33, 29, .16);
+      border-radius: 8px;
+      background: var(--yellow);
+      box-shadow: 0 9px 24px rgba(32, 33, 29, .12), 0 0 0 0 rgba(255, 99, 40, .26);
+      text-align: left;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease;
+      animation: entry-glow 2.8s ease-in-out infinite;
+    }
+
+    .wow-entry:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 32px rgba(32, 33, 29, .18), 0 0 24px rgba(255, 99, 40, .28);
+      animation-play-state: paused;
+    }
+
+    @keyframes entry-glow {
+      0%, 100% { box-shadow: 0 9px 24px rgba(32, 33, 29, .12), 0 0 0 0 rgba(255, 99, 40, .23); }
+      50% { box-shadow: 0 13px 28px rgba(32, 33, 29, .14), 0 0 24px rgba(255, 99, 40, .2); }
+    }
+
+    .wow-spark {
+      position: absolute;
+      top: -11px;
+      left: 12px;
+      width: 27px;
+      height: 27px;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--yellow);
+      border-radius: 50%;
+      color: var(--yellow);
+      background: var(--ink);
+      box-shadow: 0 4px 12px rgba(32, 33, 29, .2);
+    }
+
+    .wow-spark .icon {
+      width: 13px;
+      height: 13px;
+    }
+
+    .wow-avatar {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      flex: none;
+      border-radius: 50%;
+      color: var(--yellow);
+      background: var(--ink);
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .wow-avatar::after {
+      content: "";
+      position: absolute;
+      right: 1px;
+      bottom: 3px;
+      width: 9px;
+      height: 9px;
+      border: 2px solid var(--yellow);
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    .wow-copy {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .wow-name {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 3px;
+      font-size: 10px;
+      font-weight: 800;
+      color: rgba(32, 33, 29, .68);
+    }
+
+    .wow-copy strong {
+      display: block;
+      font-size: 17px;
+      line-height: 1.35;
+      font-weight: 900;
+      letter-spacing: -.025em;
+    }
+
+    .wow-copy small {
+      display: block;
+      margin-top: 3px;
+      color: rgba(32, 33, 29, .66);
+      font-size: 9.5px;
+      font-weight: 600;
+    }
+
+    .wow-bubble {
+      position: absolute;
+      right: 17px;
+      top: -21px;
+      padding: 8px 12px;
+      border: 2px solid rgba(32, 33, 29, .16);
+      border-radius: 8px 8px 1px 8px;
+      background: #fff;
+      box-shadow: 0 7px 17px rgba(32, 33, 29, .14);
+      font-size: 12px;
+      font-weight: 850;
+      white-space: nowrap;
+      animation: bubble-bob 2.4s ease-in-out infinite;
+    }
+
+    @keyframes bubble-bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
+    .wow-arrow {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      flex: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .56);
+      box-shadow: 0 0 0 6px rgba(255, 255, 255, .13);
+    }
+
+    .wow-arrow .icon {
+      width: 15px;
+      height: 15px;
+    }
+
+    .platform-section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 19px 2px 10px;
+    }
+
+    .platform-section-head strong {
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: -.02em;
+    }
+
+    .platform-section-head span {
+      color: var(--ink-soft);
+      font-size: 9.5px;
+      font-weight: 600;
+    }
+
+    .platform-merchants {
+      display: grid;
+      gap: 9px;
+    }
+
+    .platform-merchant {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 10px;
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .merchant-thumb {
+      position: relative;
+      width: 58px;
+      height: 58px;
+      flex: none;
+      overflow: hidden;
+      border-radius: 7px;
+      background: #f2dfbb;
+    }
+
+    .merchant-thumb::before {
+      content: "";
+      position: absolute;
+      left: 11px;
+      right: 11px;
+      bottom: 12px;
+      height: 23px;
+      border: 2px solid rgba(74, 56, 34, .65);
+      border-top: 0;
+      border-radius: 0 0 22px 22px;
+      background: #fff3d6;
+    }
+
+    .merchant-thumb::after {
+      content: "";
+      position: absolute;
+      left: 21px;
+      bottom: 28px;
+      width: 18px;
+      height: 12px;
+      border-radius: 50% 50% 45% 45%;
+      background: #b6763f;
+      box-shadow: 8px -3px 0 #76a85f, -7px -1px 0 #e4bd53;
+    }
+
+    .platform-merchant:nth-child(2) .merchant-thumb {
+      background: #f1d6c5;
+    }
+
+    .platform-merchant:nth-child(3) .merchant-thumb {
+      background: #dbe9d2;
+    }
+
+    .merchant-copy {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .merchant-copy strong {
+      display: block;
+      overflow: hidden;
+      font-size: 12.5px;
+      font-weight: 800;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .merchant-copy p {
+      margin: 5px 0 0;
+      color: var(--ink-soft);
+      font-size: 9.5px;
+      font-weight: 550;
+    }
+
+    .merchant-score {
+      align-self: flex-start;
+      color: #7c632a;
+      font-size: 9.5px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .platform-nav {
+      position: absolute;
+      z-index: 4;
+      left: 10px;
+      right: 10px;
+      bottom: max(9px, env(safe-area-inset-bottom));
+      min-height: 64px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      align-items: center;
+      padding: 6px 10px;
+      border: 1px solid rgba(32, 33, 29, .08);
+      border-radius: 17px;
+      background: rgba(255, 255, 255, .95);
+      box-shadow: 0 12px 30px rgba(32, 33, 29, .16);
+      backdrop-filter: blur(16px);
+    }
+
+    .platform-nav-item {
+      display: grid;
+      place-items: center;
+      align-content: center;
+      gap: 3px;
+      min-height: 48px;
+      border: 0;
+      border-radius: 12px;
+      background: transparent;
+      color: var(--ink-soft);
+      font-size: 8.5px;
+      font-weight: 650;
+    }
+
+    .platform-nav-item .icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    .platform-nav-item.active {
+      color: var(--ink);
+      background: var(--yellow-soft);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 304px;
+      padding: 0 20px 46px;
+      background: var(--yellow);
+      border-radius: 0 0 26px 26px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -36px;
+      bottom: -68px;
+      width: 210px;
+      height: 210px;
+      border: 1px solid rgba(32, 33, 29, .1);
+      border-radius: 50%;
+      box-shadow: 0 0 0 24px rgba(255, 255, 255, .08), 0 0 0 52px rgba(255, 255, 255, .06);
+      pointer-events: none;
+    }
+
+    .status-bar {
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-num);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .signal {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 10px;
+    }
+
+    .signal span {
+      width: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+    }
+
+    .signal span:nth-child(1) { height: 4px; }
+    .signal span:nth-child(2) { height: 6px; }
+    .signal span:nth-child(3) { height: 8px; }
+    .signal span:nth-child(4) { height: 10px; }
+
+    .wifi {
+      width: 13px;
+      height: 10px;
+      border-top: 2px solid var(--ink);
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .wifi::before,
+    .wifi::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 2px solid var(--ink);
+      border-bottom: 0;
+      border-radius: 50% 50% 0 0;
+    }
+
+    .wifi::before {
+      top: 1px;
+      width: 8px;
+      height: 5px;
+    }
+
+    .wifi::after {
+      top: 4px;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: var(--ink);
+    }
+
+    .battery {
+      position: relative;
+      width: 19px;
+      height: 9px;
+      border: 1.5px solid var(--ink);
+      border-radius: 3px;
+    }
+
+    .battery::before {
+      content: "";
+      position: absolute;
+      inset: 1.5px 4px 1.5px 1.5px;
+      background: var(--ink);
+      border-radius: 1px;
+    }
+
+    .battery::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      right: -3px;
+      width: 2px;
+      height: 3px;
+      background: var(--ink);
+      border-radius: 0 1px 1px 0;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 40px;
+    }
+
+    .topbar-left {
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .back-button {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      flex: none;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .54);
+      cursor: pointer;
+    }
+
+    .back-button .icon {
+      width: 15px;
+      height: 15px;
+    }
+
+    .location-button,
+    .icon-button,
+    .brand-button {
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .location-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      min-width: 0;
+      padding: 7px 0;
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: .01em;
+    }
+
+    .location-button .icon {
+      width: 14px;
+      height: 14px;
+    }
+
+    .location-button .chevron {
+      width: 12px;
+      height: 12px;
+      opacity: .58;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .assistant-online {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      height: 27px;
+      padding: 0 9px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .6);
+      font-size: 10.5px;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+
+    .online-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 3px rgba(64, 116, 93, .12);
+    }
+
+    .icon-button {
+      width: 34px;
+      height: 34px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .58);
+      transition: transform .18s ease, background .18s ease;
+    }
+
+    .icon-button:hover {
+      background: rgba(255, 255, 255, .85);
+      transform: translateY(-1px);
+    }
+
+    .icon-button:active {
+      transform: scale(.95);
+    }
+
+    .icon {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex: none;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+      margin-top: 17px;
+      padding-right: 104px;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 9px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      color: rgba(32, 33, 29, .72);
+    }
+
+    .hero-kicker::before {
+      content: "";
+      width: 18px;
+      height: 1.5px;
+      background: currentColor;
+      border-radius: 4px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 33px;
+      line-height: 1.12;
+      letter-spacing: -.045em;
+      font-weight: 850;
+    }
+
+    h1 .muted {
+      color: rgba(32, 33, 29, .6);
+      font-weight: 750;
+    }
+
+    .hero-copy p {
+      max-width: 246px;
+      margin: 13px 0 0;
+      color: rgba(32, 33, 29, .75);
+      font-size: 12.5px;
+      line-height: 1.65;
+      font-weight: 500;
+    }
+
+    .hero-copy p strong {
+      color: var(--ink);
+      font-weight: 800;
+    }
+
+    .assistant-note {
+      position: absolute;
+      z-index: 2;
+      right: 18px;
+      top: 112px;
+      width: 96px;
+      padding: 14px 12px 13px;
+      transform: rotate(2.8deg);
+      background: #fffdf5;
+      border: 1px solid rgba(32, 33, 29, .16);
+      border-radius: 4px;
+      box-shadow: 4px 6px 0 rgba(32, 33, 29, .06);
+      font-size: 11px;
+      line-height: 1.5;
+      font-weight: 650;
+    }
+
+    .assistant-note::before {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      width: 44px;
+      height: 10px;
+      transform: translateX(-50%) rotate(-3deg);
+      background: rgba(255, 245, 184, .86);
+    }
+
+    .assistant-note strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .assistant-face {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 7px;
+      background: var(--ink);
+      color: var(--yellow);
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .hero-bottom {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 21px;
+    }
+
+    .lunch-time {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-num);
+      font-size: 22px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -.03em;
+    }
+
+    .lunch-time small {
+      font-family: var(--font);
+      font-size: 10px;
+      font-weight: 650;
+      color: rgba(32, 33, 29, .56);
+      letter-spacing: .02em;
+    }
+
+    .mini-proof {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10.5px;
+      font-weight: 650;
+      color: rgba(32, 33, 29, .66);
+    }
+
+    .mini-proof .icon {
+      width: 13px;
+      height: 13px;
+    }
+
+    .content {
+      position: relative;
+      z-index: 3;
+      padding: 0 16px 28px;
+    }
+
+    .rule-card-wrap {
+      margin-top: -24px;
+    }
+
+    .rule-card {
+      width: 100%;
+      min-height: 62px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 12px 13px;
+      border: 1px solid rgba(32, 33, 29, .08);
+      border-radius: 8px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+      text-align: left;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .rule-card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 15px 38px rgba(32, 33, 29, .12);
+    }
+
+    .rule-icon {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--yellow-soft);
+      flex: none;
+    }
+
+    .rule-icon .icon {
+      width: 17px;
+      height: 17px;
+    }
+
+    .rule-copy {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .rule-label {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      color: var(--ink-soft);
+    }
+
+    .rule-text {
+      display: block;
+      overflow: hidden;
+      font-size: 11.5px;
+      line-height: 1.45;
+      font-weight: 650;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .edit-pill {
+      flex: none;
+      padding: 6px 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--ink-soft);
+      background: #fff;
+      font-size: 10.5px;
+      font-weight: 700;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 23px 2px 12px;
+    }
+
+    .section-title-wrap h2 {
+      margin: 0;
+      font-size: 19px;
+      line-height: 1.25;
+      letter-spacing: -.025em;
+      font-weight: 850;
+    }
+
+    .section-title-wrap p {
+      margin: 5px 0 0;
+      color: var(--ink-soft);
+      font-size: 10.5px;
+      line-height: 1.4;
+      font-weight: 550;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .section-title-wrap p .icon {
+      width: 11px;
+      height: 11px;
+      color: var(--green);
+      stroke-width: 2.2;
+    }
+
+    .shuffle-button {
+      width: 33px;
+      height: 33px;
+      display: inline-grid;
+      place-items: center;
+      align-items: center;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: transparent;
+      cursor: pointer;
+      font-size: 10.5px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .shuffle-button .icon {
+      width: 13px;
+      height: 13px;
+    }
+
+    .meal-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .feedback-notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 11px;
+      padding: 10px 10px 9px;
+      border: 1px solid #d6e8da;
+      border-radius: 8px;
+      background: #f1f8f2;
+    }
+
+    .feedback-notice[hidden] {
+      display: none !important;
+    }
+
+    .feedback-notice > .icon {
+      width: 14px;
+      height: 14px;
+      margin-top: 1px;
+      color: var(--green);
+      flex: none;
+    }
+
+    .feedback-notice-copy {
+      min-width: 0;
+      flex: 1;
+      font-size: 9.5px;
+      line-height: 1.5;
+    }
+
+    .feedback-notice-copy strong {
+      display: block;
+      margin-bottom: 1px;
+      color: var(--green);
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .feedback-notice-close {
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      flex: none;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(64, 116, 93, .08);
+      cursor: pointer;
+    }
+
+    .feedback-notice-close .icon {
+      width: 11px;
+      height: 11px;
+    }
+
+    .meal-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--card);
+      border: 1px solid rgba(32, 33, 29, .08);
+      border-radius: 8px;
+      box-shadow: 0 7px 22px rgba(32, 33, 29, .06);
+      transition: opacity .26s ease, transform .26s ease, box-shadow .18s ease;
+      animation: card-in .52s both;
+    }
+
+    .rank-badge {
+      position: absolute;
+      z-index: 4;
+      top: 10px;
+      right: 10px;
+      min-height: 25px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 9px;
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(32, 33, 29, .9);
+      box-shadow: 0 3px 10px rgba(32, 33, 29, .17);
+      font-family: var(--font-num);
+      font-size: 9px;
+      font-weight: 850;
+      letter-spacing: .05em;
+    }
+
+    .meal-card:nth-child(2) { animation-delay: .08s; }
+    .meal-card:nth-child(3) { animation-delay: .16s; }
+
+    @keyframes card-in {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .meal-card:hover {
+      box-shadow: 0 12px 28px rgba(32, 33, 29, .09);
+    }
+
+    .meal-card.is-removing {
+      opacity: 0;
+      transform: translateX(22px) scale(.98);
+      pointer-events: none;
+    }
+
+    .meal-visual {
+      position: relative;
+      height: 126px;
+      overflow: hidden;
+      background: #e9e5d7;
+    }
+
+    .meal-visual svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .meal-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      min-height: 25px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 0 9px;
+      border-radius: 999px;
+      color: var(--ink);
+      background: var(--yellow);
+      box-shadow: 0 2px 8px rgba(32, 33, 29, .12);
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .meal-badge .icon {
+      width: 12px;
+      height: 12px;
+    }
+
+    .meal-body {
+      padding: 13px 13px 12px;
+    }
+
+    .meal-topline {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .meal-title {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.35;
+      letter-spacing: -.025em;
+      font-weight: 850;
+    }
+
+    .rating {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      margin-top: 2px;
+      flex: none;
+      font-family: var(--font-num);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .rating .icon {
+      width: 11px;
+      height: 11px;
+      fill: var(--yellow-strong);
+      stroke: var(--yellow-strong);
+    }
+
+    .shop-line {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 5px;
+      color: var(--ink-soft);
+      font-size: 10.5px;
+      line-height: 1.4;
+      font-weight: 550;
+    }
+
+    .shop-line .dot {
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .reason-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 11px;
+    }
+
+    .reason-chip {
+      min-height: 26px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 0 8px;
+      border-radius: 5px;
+      color: var(--green);
+      background: var(--green-soft);
+      font-size: 9.5px;
+      font-weight: 700;
+    }
+
+    .reason-chip .icon {
+      width: 11px;
+      height: 11px;
+      stroke-width: 2.4;
+    }
+
+    .reason-chip.neutral {
+      color: #765820;
+      background: #fff5d8;
+    }
+
+    .meal-review {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 10px;
+      padding: 8px 9px;
+      border-radius: 7px;
+      color: #5f625a;
+      background: #f7f6f1;
+      font-size: 9.5px;
+      line-height: 1.45;
+    }
+
+    .meal-review .icon {
+      width: 13px;
+      height: 13px;
+      flex: none;
+      color: var(--orange);
+    }
+
+    .meal-review span {
+      min-width: 0;
+      flex: 1;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .meal-review b {
+      flex: none;
+      color: #8a8d84;
+      font-size: 8.5px;
+      font-weight: 600;
+    }
+
+    .ticket-divider {
+      position: relative;
+      height: 1px;
+      margin: 12px 0 11px;
+      border-top: 1px dashed var(--line);
+    }
+
+    .ticket-divider::before,
+    .ticket-divider::after {
+      content: "";
+      position: absolute;
+      top: -5px;
+      width: 9px;
+      height: 9px;
+      border: 1px solid rgba(32, 33, 29, .08);
+      border-radius: 50%;
+      background: var(--paper);
+    }
+
+    .ticket-divider::before { left: -18px; }
+    .ticket-divider::after { right: -18px; }
+
+    .meal-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .price-line {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .price {
+      font-family: var(--font-num);
+      font-size: 23px;
+      line-height: 1;
+      font-weight: 850;
+      letter-spacing: -.04em;
+    }
+
+    .price::before {
+      content: "¥";
+      margin-right: 2px;
+      font-size: 12px;
+      letter-spacing: 0;
+    }
+
+    .delivery {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      color: var(--ink-soft);
+      font-family: var(--font-num);
+      font-size: 10px;
+      font-weight: 650;
+    }
+
+    .delivery .icon {
+      width: 11px;
+      height: 11px;
+    }
+
+    .meal-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .feedback-button {
+      width: 35px;
+      height: 35px;
+      display: inline-grid;
+      place-items: center;
+      align-items: center;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      cursor: pointer;
+      color: var(--ink-soft);
+      font-size: 10px;
+      font-weight: 650;
+      transition: border-color .18s ease, color .18s ease;
+    }
+
+    .feedback-button:hover {
+      border-color: #c8c7bf;
+      color: var(--ink);
+    }
+
+    .feedback-button .icon {
+      width: 15px;
+      height: 15px;
+    }
+
+    .choose-button {
+      min-height: 35px;
+      padding: 0 16px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--yellow);
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 850;
+      transition: transform .16s ease, background .16s ease;
+    }
+
+    .choose-button:hover {
+      background: var(--yellow-strong);
+      transform: translateY(-1px);
+    }
+
+    .choose-button:active {
+      transform: scale(.97);
+    }
+
+    .meal-card[hidden] {
+      display: none;
+    }
+
+    .nudge-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 14px 0 2px;
+    }
+
+    .nudge-note {
+      color: var(--ink-soft);
+      font-size: 10.5px;
+      font-weight: 550;
+    }
+
+    .nudge-button {
+      min-height: 30px;
+      padding: 0 10px;
+      border: 1px solid #d9d8d0;
+      border-radius: 999px;
+      background: transparent;
+      cursor: pointer;
+      font-size: 10.5px;
+      font-weight: 750;
+    }
+
+    .encouragement {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 23px;
+      padding: 17px 2px 18px;
+      border-top: 1px dashed #d7d6cd;
+      border-bottom: 1px dashed #d7d6cd;
+    }
+
+    .encouragement-icon {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      flex: none;
+      border-radius: 50%;
+      color: var(--orange);
+      background: var(--orange-soft);
+    }
+
+    .encouragement-icon .icon {
+      width: 15px;
+      height: 15px;
+    }
+
+    .encouragement p {
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.65;
+      font-weight: 600;
+    }
+
+    .encouragement p span {
+      display: block;
+      margin-top: 2px;
+      color: var(--ink-soft);
+      font-size: 10px;
+      font-weight: 500;
+    }
+
+    .app-footnote {
+      margin: 17px 2px 0;
+      color: #91948a;
+      font-size: 9.5px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .bottom-nav {
+      position: absolute;
+      z-index: 20;
+      left: 10px;
+      right: 10px;
+      bottom: max(9px, env(safe-area-inset-bottom));
+      min-height: 67px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: center;
+      padding: 7px 12px;
+      border: 1px solid rgba(32, 33, 29, .09);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, .94);
+      box-shadow: 0 12px 32px rgba(32, 33, 29, .16);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-button {
+      height: 49px;
+      display: grid;
+      place-items: center;
+      align-content: center;
+      gap: 3px;
+      border: 0;
+      border-radius: 12px;
+      background: transparent;
+      color: var(--ink-soft);
+      cursor: pointer;
+      font-size: 9px;
+      font-weight: 650;
+    }
+
+    .nav-button .icon {
+      width: 19px;
+      height: 19px;
+    }
+
+    .nav-button.active {
+      color: var(--ink);
+      background: var(--yellow-soft);
+    }
+
+    .nav-button.active .icon {
+      stroke-width: 2.25;
+    }
+
+    .toast {
+      position: absolute;
+      z-index: 70;
+      left: 50%;
+      bottom: 91px;
+      max-width: calc(100% - 34px);
+      padding: 10px 14px;
+      transform: translate(-50%, 12px);
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(32, 33, 29, .94);
+      box-shadow: 0 8px 24px rgba(32, 33, 29, .22);
+      font-size: 11px;
+      line-height: 1.4;
+      font-weight: 600;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    .overlay {
+      position: absolute;
+      z-index: 50;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      background: rgba(24, 25, 21, .38);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .24s ease, visibility .24s ease;
+    }
+
+    .overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .sheet {
+      width: 100%;
+      max-height: 88%;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      border-radius: 22px 22px 0 0;
+      background: #fbfaf6;
+      box-shadow: 0 -20px 50px rgba(32, 33, 29, .17);
+      transform: translateY(24px);
+      transition: transform .28s cubic-bezier(.2, .74, .28, 1);
+    }
+
+    .overlay.open .sheet.active {
+      display: flex;
+      transform: translateY(0);
+    }
+
+    .sheet-handle {
+      width: 38px;
+      height: 4px;
+      margin: 8px auto 2px;
+      border-radius: 99px;
+      background: #d8d6cd;
+      flex: none;
+    }
+
+    .sheet-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 13px 18px 12px;
+      flex: none;
+    }
+
+    .onboarding-head-main {
+      min-width: 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      flex: 1;
+    }
+
+    .sheet-title {
+      margin: 0;
+      font-size: 21px;
+      line-height: 1.25;
+      letter-spacing: -.035em;
+      font-weight: 850;
+    }
+
+    .sheet-subtitle {
+      margin: 6px 0 0;
+      color: var(--ink-soft);
+      font-size: 11px;
+      line-height: 1.55;
+      font-weight: 500;
+    }
+
+    .close-button {
+      width: 31px;
+      height: 31px;
+      display: grid;
+      place-items: center;
+      flex: none;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .close-button .icon {
+      width: 15px;
+      height: 15px;
+    }
+
+    .sheet-body {
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding: 0 18px 18px;
+      scrollbar-width: none;
+    }
+
+    .form-section {
+      margin: 4px 0 0;
+      padding: 16px 0 18px;
+      border: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .form-section:first-child {
+      border-top: 0;
+    }
+
+    .form-section legend {
+      width: 100%;
+      margin: 0 0 4px;
+      padding: 0;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .section-help {
+      margin: 4px 0 11px;
+      color: var(--ink-soft);
+      font-size: 10.5px;
+      line-height: 1.55;
+      font-weight: 500;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .choice-chip {
+      min-height: 33px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 0 12px;
+      border: 1px solid #deddd5;
+      border-radius: 999px;
+      color: #55584f;
+      background: #fff;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 650;
+      transition: border-color .18s ease, background .18s ease, color .18s ease;
+    }
+
+    .choice-chip[aria-pressed="true"] {
+      color: var(--ink);
+      border-color: var(--ink);
+      background: var(--yellow-soft);
+    }
+
+    button:disabled {
+      opacity: .42;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .onboarding-sheet {
+      max-height: 92%;
+    }
+
+    .onboarding-progress {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 2px 0 16px;
+    }
+
+    .onboarding-track {
+      flex: 1;
+      height: 4px;
+      overflow: hidden;
+      border-radius: 99px;
+      background: #e6e4dc;
+    }
+
+    .onboarding-track span {
+      display: block;
+      width: 33.333%;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--ink);
+      transition: width .22s ease;
+    }
+
+    .onboarding-count {
+      color: var(--ink-soft);
+      font-family: var(--font-num);
+      font-size: 10px;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+
+    .onboarding-step {
+      display: none;
+    }
+
+    .onboarding-step.active {
+      display: block;
+      animation: step-in .22s ease both;
+    }
+
+    @keyframes step-in {
+      from { opacity: 0; transform: translateX(8px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .question-title {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.35;
+      letter-spacing: -.025em;
+      font-weight: 880;
+    }
+
+    .question-help {
+      margin: 6px 0 14px;
+      color: var(--ink-soft);
+      font-size: 10.5px;
+      line-height: 1.55;
+      font-weight: 500;
+    }
+
+    .onboarding-choices {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .onboarding-choices .choice-chip {
+      min-height: 38px;
+      padding: 0 14px;
+      font-size: 11.5px;
+    }
+
+    .onboarding-tip {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      margin-top: 14px;
+      padding: 10px 11px;
+      border-radius: 8px;
+      color: #6f5928;
+      background: #fff5d7;
+      font-size: 9.5px;
+      line-height: 1.55;
+      font-weight: 550;
+    }
+
+    .onboarding-tip .icon {
+      width: 13px;
+      height: 13px;
+      margin-top: 1px;
+    }
+
+    .hard-type-tabs {
+      display: inline-grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3px;
+      margin-bottom: 11px;
+      padding: 3px;
+      border-radius: 9px;
+      background: #edebe3;
+    }
+
+    .hard-type-tabs button {
+      min-width: 86px;
+      min-height: 31px;
+      border: 0;
+      border-radius: 7px;
+      background: transparent;
+      color: var(--ink-soft);
+      cursor: pointer;
+      font-size: 10.5px;
+      font-weight: 700;
+    }
+
+    .hard-type-tabs button[aria-pressed="true"] {
+      color: var(--ink);
+      background: #fff;
+      box-shadow: 0 2px 7px rgba(32, 33, 29, .08);
+    }
+
+    .hard-type-tabs button[data-hard-type="过敏原"][aria-pressed="true"] {
+      background: #ffe9db;
+    }
+
+    .custom-constraint {
+      display: flex;
+      gap: 7px;
+      margin-top: 9px;
+    }
+
+    .custom-constraint[hidden] {
+      display: none !important;
+    }
+
+    .custom-constraint input {
+      flex: 1;
+      min-width: 0;
+      height: 38px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      font-size: 11px;
+      outline: none;
+    }
+
+    .custom-constraint input:focus {
+      border-color: var(--ink);
+    }
+
+    .custom-constraint button {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 8px;
+      background: var(--ink);
+      color: var(--yellow);
+      cursor: pointer;
+    }
+
+    .custom-constraint button .icon {
+      width: 15px;
+      height: 15px;
+    }
+
+    .hard-summary {
+      margin-top: 11px;
+      padding: 9px 10px;
+      border-radius: 7px;
+      color: #66695f;
+      background: #f4f2eb;
+      font-size: 9.5px;
+      line-height: 1.55;
+    }
+
+    .hard-summary strong {
+      color: var(--ink);
+      font-weight: 750;
+    }
+
+    .hashtag-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 9px;
+      color: var(--ink-soft);
+      font-size: 9.5px;
+      font-weight: 600;
+    }
+
+    .hashtag-count {
+      color: var(--orange);
+      font-family: var(--font-num);
+      font-weight: 800;
+    }
+
+    .hashtag-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .hashtag-group {
+      display: grid;
+      gap: 7px;
+    }
+
+    .hashtag-group-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--ink-soft);
+      font-size: 9px;
+      font-weight: 750;
+    }
+
+    .hashtag-group-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .hashtag-group-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .hashtag-chip {
+      min-height: 29px;
+      padding: 0 9px;
+      border: 1px solid #e2e0d8;
+      border-radius: 6px;
+      background: #fff;
+      color: #66695f;
+      cursor: pointer;
+      font-size: 9.5px;
+      font-weight: 650;
+    }
+
+    .hashtag-chip[aria-pressed="true"] {
+      color: var(--ink);
+      border-color: var(--ink);
+      background: var(--yellow-soft);
+    }
+
+    .budget-choice {
+      min-height: 37px;
+      padding: 0 13px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      font-family: var(--font-num);
+      font-size: 11px;
+      font-weight: 750;
+    }
+
+    .budget-choice[aria-pressed="true"] {
+      border-color: var(--ink);
+      background: var(--yellow-soft);
+    }
+
+    .custom-budget {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 11px;
+    }
+
+    .custom-budget[hidden] {
+      display: none !important;
+    }
+
+    .price-input-wrap {
+      flex: 1;
+      min-width: 0;
+      height: 39px;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      padding: 0 9px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .price-input-wrap span {
+      color: var(--ink-soft);
+      font-family: var(--font-num);
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .price-input-wrap input {
+      width: 100%;
+      min-width: 0;
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      outline: none;
+      font-family: var(--font-num);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .price-input-wrap input::-webkit-inner-spin-button,
+    .price-input-wrap input::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .repeat-segment {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .repeat-segment button {
+      min-height: 42px;
+      padding: 0 5px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      color: var(--ink-soft);
+      font-size: 9.5px;
+      font-weight: 650;
+    }
+
+    .repeat-segment button[aria-pressed="true"] {
+      color: var(--ink);
+      border-color: var(--ink);
+      background: var(--yellow-soft);
+      font-weight: 800;
+    }
+
+    .onboarding-actions {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 8px;
+      margin-top: 20px;
+      padding-top: 13px;
+      border-top: 1px solid var(--line);
+    }
+
+    .onboarding-back {
+      min-width: 76px;
+      min-height: 48px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      cursor: pointer;
+      color: var(--ink-soft);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .onboarding-back:disabled {
+      visibility: hidden;
+    }
+
+    .onboarding-skip {
+      display: block;
+      width: 100%;
+      min-height: 34px;
+      margin-top: 4px;
+      padding: 7px 0 3px;
+      border: 0;
+      background: transparent;
+      color: #55584f;
+      cursor: pointer;
+      font-size: 12px;
+      font-style: italic;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-align: center;
+    }
+
+    .toggle-list {
+      display: grid;
+    }
+
+    .toggle-row {
+      min-height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .toggle-row:last-child {
+      border-bottom: 0;
+    }
+
+    .toggle-copy strong {
+      display: block;
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .toggle-copy span {
+      display: block;
+      margin-top: 2px;
+      color: var(--ink-soft);
+      font-size: 9.5px;
+      line-height: 1.45;
+    }
+
+    .switch {
+      position: relative;
+      width: 43px;
+      height: 25px;
+      flex: none;
+    }
+
+    .switch input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      opacity: 0;
+    }
+
+    .switch-track {
+      position: absolute;
+      inset: 0;
+      border-radius: 99px;
+      background: #d8d8d1;
+      cursor: pointer;
+      transition: background .18s ease;
+    }
+
+    .switch-track::after {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(32, 33, 29, .2);
+      transition: transform .18s ease;
+    }
+
+    .switch input:checked + .switch-track {
+      background: var(--ink);
+    }
+
+    .switch input:checked + .switch-track::after {
+      transform: translateX(18px);
+      background: var(--yellow);
+    }
+
+    .switch input:focus-visible + .switch-track {
+      outline: 3px solid rgba(32, 33, 29, .35);
+      outline-offset: 3px;
+    }
+
+    .min-budget-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 11px;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .min-budget-row span {
+      color: var(--ink-soft);
+      font-size: 10.5px;
+      font-weight: 550;
+    }
+
+    .min-budget-row strong {
+      font-family: var(--font-num);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .sheet-actions {
+      position: sticky;
+      bottom: 0;
+      display: grid;
+      gap: 8px;
+      padding: 12px 0 max(13px, env(safe-area-inset-bottom));
+      background: linear-gradient(to bottom, rgba(251, 250, 246, 0), #fbfaf6 14px);
+    }
+
+    .primary-button {
+      min-height: 48px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--yellow);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 850;
+      transition: background .16s ease, transform .16s ease;
+    }
+
+    .primary-button:hover {
+      background: var(--yellow-strong);
+    }
+
+    .primary-button:active {
+      transform: scale(.985);
+    }
+
+    .text-button {
+      min-height: 35px;
+      border: 0;
+      background: transparent;
+      color: var(--ink-soft);
+      cursor: pointer;
+      font-size: 10.5px;
+      font-weight: 650;
+    }
+
+    .feedback-options {
+      display: grid;
+      gap: 8px;
+      padding-top: 5px;
+    }
+
+    .feedback-option {
+      width: 100%;
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color .18s ease, transform .18s ease;
+    }
+
+    .feedback-option:hover {
+      border-color: #b9b8af;
+      transform: translateY(-1px);
+    }
+
+    .feedback-option-icon {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      flex: none;
+      border-radius: 8px;
+      color: var(--orange);
+      background: var(--orange-soft);
+    }
+
+    .feedback-option-icon .icon {
+      width: 17px;
+      height: 17px;
+    }
+
+    .feedback-option-copy {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .feedback-option-copy strong {
+      display: block;
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .feedback-option-copy span {
+      display: block;
+      margin-top: 2px;
+      color: var(--ink-soft);
+      font-size: 9.5px;
+      line-height: 1.4;
+    }
+
+    .feedback-option > .icon {
+      width: 14px;
+      height: 14px;
+      color: #999c93;
+    }
+
+    .order-summary {
+      margin-top: 2px;
+      padding: 15px 13px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .order-meal-name {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.4;
+      font-weight: 850;
+    }
+
+    .order-shop {
+      margin: 4px 0 0;
+      color: var(--ink-soft);
+      font-size: 10.5px;
+      font-weight: 550;
+    }
+
+    .order-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink-soft);
+      font-size: 11px;
+    }
+
+    .order-row:first-child {
+      padding-top: 0;
+    }
+
+    .order-row:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .order-row strong {
+      color: var(--ink);
+      font-weight: 750;
+      text-align: right;
+    }
+
+    .order-price {
+      font-family: var(--font-num);
+      font-size: 22px;
+      font-weight: 850;
+    }
+
+    .order-price::before {
+      content: "¥";
+      margin-right: 1px;
+      font-size: 11px;
+    }
+
+    .tiny-note {
+      margin: 10px 2px 13px;
+      color: #8b8e84;
+      font-size: 9.5px;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    .settings-block {
+      padding: 0 0 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .settings-block + .settings-block {
+      padding-top: 16px;
+    }
+
+    .settings-block-title {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .settings-block-copy {
+      margin: 5px 0 0;
+      color: var(--ink-soft);
+      font-size: 10px;
+      line-height: 1.55;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      min-height: 29px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 0 8px 0 10px;
+      border-radius: 999px;
+      color: var(--green);
+      background: var(--green-soft);
+      font-size: 10px;
+      font-weight: 650;
+    }
+
+    .tag button {
+      width: 19px;
+      height: 19px;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(64, 116, 93, .1);
+      cursor: pointer;
+    }
+
+    .tag .icon {
+      width: 10px;
+      height: 10px;
+    }
+
+    .explain-box {
+      margin-top: 9px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .explain-box summary {
+      min-height: 43px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 0 12px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 700;
+      list-style: none;
+    }
+
+    .explain-box summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .explain-box summary .icon {
+      width: 14px;
+      height: 14px;
+      transition: transform .18s ease;
+    }
+
+    .explain-box[open] summary .icon {
+      transform: rotate(180deg);
+    }
+
+    .explain-copy {
+      margin: 0;
+      padding: 0 12px 12px;
+      color: var(--ink-soft);
+      font-size: 10px;
+      line-height: 1.7;
+    }
+
+    .privacy-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      margin-top: 14px;
+      color: var(--ink-soft);
+      font-size: 9.5px;
+      line-height: 1.55;
+    }
+
+    .privacy-note .icon {
+      width: 13px;
+      height: 13px;
+      margin-top: 1px;
+    }
+
+    .empty-state {
+      display: none;
+      padding: 26px 14px;
+      border: 1px dashed #d2d1c8;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .empty-state strong {
+      display: block;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .empty-state p {
+      margin: 6px auto 13px;
+      color: var(--ink-soft);
+      font-size: 10.5px;
+      line-height: 1.6;
+    }
+
+    .empty-state button {
+      min-height: 34px;
+      padding: 0 14px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--yellow);
+      cursor: pointer;
+      font-size: 10.5px;
+      font-weight: 800;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        display: block;
+        background: var(--paper);
+      }
+
+      .phone {
+        width: 100%;
+        height: 100dvh;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .bottom-nav {
+        left: 10px;
+        right: 10px;
+        bottom: max(8px, env(safe-area-inset-bottom));
+      }
+    }
+
+    @media (max-width: 350px) {
+      .hero {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .hero-copy {
+        padding-right: 92px;
+      }
+
+      .hero-copy h1 {
+        font-size: 29px;
+      }
+
+      .assistant-note {
+        right: 14px;
+        width: 88px;
+      }
+
+      .content {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .rule-text {
+        font-size: 10.5px;
+      }
+
+      .meal-actions {
+        gap: 4px;
+      }
+
+      .feedback-button {
+        width: 33px;
+        height: 33px;
+        padding: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+    <symbol id="i-pin" viewBox="0 0 24 24">
+      <path d="M20 10c0 5.5-8 12-8 12S4 15.5 4 10a8 8 0 1 1 16 0Z"/>
+      <circle cx="12" cy="10" r="2.6"/>
+    </symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24">
+      <path d="m6 9 6 6 6-6"/>
+    </symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24">
+      <path d="M19 12H5M11 18l-6-6 6-6"/>
+    </symbol>
+    <symbol id="i-search" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="7"/>
+      <path d="m20 20-4-4"/>
+    </symbol>
+    <symbol id="i-compass" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="m15.5 8.5-2 5-5 2 2-5 5-2Z"/>
+    </symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24">
+      <path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/>
+    </symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24">
+      <path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/>
+    </symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="8.5"/>
+      <path d="M12 7v5l3 2"/>
+    </symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24">
+      <path d="m12 3 1.2 3.8L17 8l-3.8 1.2L12 13l-1.2-3.8L7 8l3.8-1.2L12 3Z"/>
+      <path d="m19 14 .7 2.3L22 17l-2.3.7L19 20l-.7-2.3L16 17l2.3-.7L19 14Z"/>
+      <path d="m5 14 .7 2.3L8 17l-2.3.7L5 20l-.7-2.3L2 17l2.3-.7L5 14Z"/>
+    </symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24">
+      <path d="M12 22s8-3.5 8-10V5l-8-3-8 3v7c0 6.5 8 10 8 10Z"/>
+      <path d="m9 12 2 2 4-4"/>
+    </symbol>
+    <symbol id="i-check" viewBox="0 0 24 24">
+      <path d="m5 12 4 4L19 6"/>
+    </symbol>
+    <symbol id="i-star" viewBox="0 0 24 24">
+      <path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z"/>
+    </symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24">
+      <path d="M20 7v5h-5"/>
+      <path d="M4 17v-5h5"/>
+      <path d="M6.1 8a7 7 0 0 1 11.7-1L20 9M4 15l2.2 2a7 7 0 0 0 11.7-1"/>
+    </symbol>
+    <symbol id="i-more" viewBox="0 0 24 24">
+      <circle cx="5" cy="12" r="1"/>
+      <circle cx="12" cy="12" r="1"/>
+      <circle cx="19" cy="12" r="1"/>
+    </symbol>
+    <symbol id="i-thumbs-down" viewBox="0 0 24 24">
+      <path d="M17 14V4M17 4H7.5a3 3 0 0 0-2.9 2.3l-1.4 6A3 3 0 0 0 6.1 16H11l-.8 3.1A2.9 2.9 0 0 0 13 22l4-8"/>
+    </symbol>
+    <symbol id="i-message" viewBox="0 0 24 24">
+      <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8Z"/>
+      <path d="M8 9h8M8 13h5"/>
+    </symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24">
+      <path d="M12 5v14M5 12h14"/>
+    </symbol>
+    <symbol id="i-x" viewBox="0 0 24 24">
+      <path d="M18 6 6 18M6 6l12 12"/>
+    </symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24">
+      <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/>
+    </symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24">
+      <path d="M5 12h14M13 6l6 6-6 6"/>
+    </symbol>
+    <symbol id="i-home" viewBox="0 0 24 24">
+      <path d="m3 11 9-8 9 8"/>
+      <path d="M5 10v10h14V10M9 20v-6h6v6"/>
+    </symbol>
+    <symbol id="i-receipt" viewBox="0 0 24 24">
+      <path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/>
+      <path d="M9 8h6M9 12h6"/>
+    </symbol>
+    <symbol id="i-user" viewBox="0 0 24 24">
+      <circle cx="12" cy="8" r="4"/>
+      <path d="M4 21a8 8 0 0 1 16 0"/>
+    </symbol>
+    <symbol id="i-category" viewBox="0 0 24 24">
+      <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+      <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+      <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+      <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+    </symbol>
+    <symbol id="i-chef" viewBox="0 0 24 24">
+      <path d="M7 13a4 4 0 1 1 1-7.9A5 5 0 0 1 18 6.5a3.5 3.5 0 0 1-.5 7H7Z"/>
+      <path d="M7 13v6h10v-6M9 19v2h6v-2"/>
+    </symbol>
+    <symbol id="i-store" viewBox="0 0 24 24">
+      <path d="M3 10h18l-2-6H5l-2 6Z"/>
+      <path d="M5 10v10h14V10M9 20v-6h6v6"/>
+    </symbol>
+    <symbol id="i-info" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="M12 11v5M12 8h.01"/>
+    </symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24">
+      <path d="M3 6h18M8 6V4h8v2M19 6l-1 15H6L5 6M10 11v6M14 11v6"/>
+    </symbol>
+  </svg>
+
+  <main class="phone" aria-label="午间小饭桌手机界面">
+    <section class="platform-home" id="platformHome" aria-label="外卖平台首页演示">
+      <div class="platform-scroll">
+        <div class="platform-head">
+          <div class="platform-status" aria-hidden="true">
+            <span>11:42</span>
+            <div class="status-icons">
+              <span class="signal"><span></span><span></span><span></span><span></span></span>
+              <span class="wifi"></span>
+              <span class="battery"></span>
+            </div>
+          </div>
+          <div class="platform-topline">
+            <div class="platform-brand">
+              小王外卖
+              <small>午餐频道</small>
+            </div>
+            <span class="platform-location">
+              <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg>
+              国贸 · 财富中心
+            </span>
+          </div>
+          <div class="platform-search" aria-hidden="true">
+            <svg class="icon"><use href="#i-search"></use></svg>
+            <span>搜午饭、奶茶、附近好店</span>
+            <b>搜索</b>
+          </div>
+          <div class="platform-tabs" aria-hidden="true">
+            <span class="active">外卖</span>
+            <span>超市</span>
+            <span>买药</span>
+            <span>跑腿</span>
+          </div>
+        </div>
+
+        <div class="platform-content">
+          <button class="wow-entry" id="wowEntry" type="button" aria-label="进入午午在线，今天午饭吃什么看这里">
+            <span class="wow-spark" aria-hidden="true">
+              <svg class="icon"><use href="#i-sparkles"></use></svg>
+            </span>
+            <span class="wow-bubble">今天午饭吃什么？看这里！</span>
+            <span class="wow-avatar" aria-hidden="true">午</span>
+            <span class="wow-copy">
+              <span class="wow-name"><span class="online-dot"></span>午午在线</span>
+              <strong>3 分钟，挑好午饭</strong>
+              <small>避开忌口 · 合口味 · 不重样</small>
+            </span>
+            <span class="wow-arrow" aria-hidden="true">
+              <svg class="icon"><use href="#i-arrow-right"></use></svg>
+            </span>
+          </button>
+
+          <div class="platform-section-head">
+            <strong>附近好店</strong>
+            <span>小王外卖商家</span>
+          </div>
+          <div class="platform-merchants" aria-hidden="true">
+            <div class="platform-merchant">
+              <span class="merchant-thumb"></span>
+              <span class="merchant-copy">
+                <strong>米村拌饭 · 国贸店</strong>
+                <p>月售 2.3k · 约 24 分钟 · 配送费 ¥2</p>
+              </span>
+              <span class="merchant-score">4.8 分</span>
+            </div>
+            <div class="platform-merchant">
+              <span class="merchant-thumb"></span>
+              <span class="merchant-copy">
+                <strong>小满手作面馆</strong>
+                <p>月售 1.6k · 约 28 分钟 · 新客减 ¥4</p>
+              </span>
+              <span class="merchant-score">4.7 分</span>
+            </div>
+            <div class="platform-merchant">
+              <span class="merchant-thumb"></span>
+              <span class="merchant-copy">
+                <strong>一亩沙拉 · CBD店</strong>
+                <p>月售 980 · 约 25 分钟 · 少油标签</p>
+              </span>
+              <span class="merchant-score">4.9 分</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <nav class="platform-nav" aria-label="外卖平台底部导航演示">
+        <div class="platform-nav-item active">
+          <svg class="icon" aria-hidden="true"><use href="#i-home"></use></svg>
+          <span>首页</span>
+        </div>
+        <div class="platform-nav-item">
+          <svg class="icon" aria-hidden="true"><use href="#i-compass"></use></svg>
+          <span>附近</span>
+        </div>
+        <div class="platform-nav-item">
+          <svg class="icon" aria-hidden="true"><use href="#i-receipt"></use></svg>
+          <span>订单</span>
+        </div>
+        <div class="platform-nav-item">
+          <svg class="icon" aria-hidden="true"><use href="#i-user"></use></svg>
+          <span>我的</span>
+        </div>
+      </nav>
+    </section>
+
+    <div class="app-screen" id="appScreen" hidden>
+      <section class="hero" aria-labelledby="heroTitle">
+        <div class="status-bar" aria-hidden="true">
+          <span>11:42</span>
+          <div class="status-icons">
+            <span class="signal"><span></span><span></span><span></span><span></span></span>
+            <span class="wifi"></span>
+            <span class="battery"></span>
+          </div>
+        </div>
+
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="back-button" id="backToPlatform" type="button" aria-label="返回外卖平台首页" title="返回首页">
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow-left"></use></svg>
+            </button>
+            <button class="location-button" id="locationButton" type="button" title="切换送餐地址">
+              <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg>
+              <span>国贸 · 财富中心</span>
+              <svg class="icon chevron" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
+            </button>
+          </div>
+          <div class="top-actions">
+            <span class="assistant-online"><span class="online-dot"></span>午午在线</span>
+            <button class="icon-button" id="settingsButton" type="button" aria-label="打开午餐设置" title="午餐设置">
+              <svg class="icon" aria-hidden="true"><use href="#i-settings"></use></svg>
+            </button>
+          </div>
+        </header>
+
+        <div class="hero-copy">
+          <span class="hero-kicker">小王外卖 · 午午在线</span>
+          <h1 id="heroTitle">午饭别想太久，<br><span class="muted">先吃好这一顿。</span></h1>
+          <p><strong>午午</strong>筛了 68 家好店，留下 3 道给你。</p>
+        </div>
+
+        <aside class="assistant-note" aria-label="外卖管家提示">
+          <div class="assistant-face" aria-hidden="true">午</div>
+          <strong>香菜已避开</strong>
+          今天换个清淡的，放心选。
+        </aside>
+
+        <div class="hero-bottom">
+          <div class="lunch-time">11:42 <small>午休刚刚开始</small></div>
+          <div class="mini-proof">
+            <svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg>
+            忌口都避开
+          </div>
+        </div>
+      </section>
+
+      <div class="content">
+        <div class="rule-card-wrap">
+          <button class="rule-card" id="ruleCard" type="button" aria-label="查看并调整今日午餐规则">
+            <span class="rule-icon" aria-hidden="true">
+              <svg class="icon"><use href="#i-sliders"></use></svg>
+            </span>
+            <span class="rule-copy">
+              <span class="rule-label">今日偏好</span>
+              <span class="rule-text" id="ruleText">避开香菜 · 不重复 · 少油 · 有主食</span>
+            </span>
+            <span class="edit-pill">调整</span>
+          </button>
+        </div>
+
+        <section aria-labelledby="shortlistTitle">
+          <div class="section-head">
+            <div class="section-title-wrap">
+              <h2 id="shortlistTitle">午午的 3 个推荐</h2>
+              <p id="shortlistSubtitle">
+                <svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg>
+                按你的偏好排序，不是广告位
+              </p>
+            </div>
+            <button class="shuffle-button" id="shuffleButton" type="button" aria-label="换一批推荐" title="换一批">
+              <svg class="icon" aria-hidden="true"><use href="#i-refresh"></use></svg>
+            </button>
+          </div>
+
+          <div class="feedback-notice" id="feedbackNotice" role="status" hidden>
+            <svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>
+            <div class="feedback-notice-copy">
+              <strong id="feedbackNoticeTitle">已调整推荐</strong>
+              <span id="feedbackNoticeBody"></span>
+            </div>
+            <button class="feedback-notice-close" id="feedbackNoticeClose" type="button" aria-label="关闭调整提示" title="关闭">
+              <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
+            </button>
+          </div>
+
+          <div class="meal-list" id="mealList">
+            <article class="meal-card" data-meal="chicken">
+              <span class="rank-badge">TOP 1</span>
+              <div class="meal-visual">
+                <svg viewBox="0 0 342 126" preserveAspectRatio="xMidYMid slice" role="img" aria-label="清蒸香菇滑鸡饭插画">
+                  <defs>
+                    <linearGradient id="chickenBg" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0" stop-color="#dce9d6"/>
+                      <stop offset="1" stop-color="#b7d4b0"/>
+                    </linearGradient>
+                    <linearGradient id="bowlCream" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="#fffdf5"/>
+                      <stop offset="1" stop-color="#e9e3d1"/>
+                    </linearGradient>
+                    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#466044" flood-opacity=".2"/>
+                    </filter>
+                  </defs>
+                  <rect width="342" height="126" fill="url(#chickenBg)"/>
+                  <path d="M0 93c52-17 90 14 139-3s72-3 116 7 63-3 87-11v40H0Z" fill="#9bc197" opacity=".32"/>
+                  <circle cx="282" cy="23" r="34" fill="#eff5e9" opacity=".55"/>
+                  <circle cx="28" cy="20" r="19" fill="#f5f0d7" opacity=".38"/>
+                  <ellipse cx="178" cy="120" rx="102" ry="18" fill="#425b3d" opacity=".16"/>
+                  <g filter="url(#softShadow)">
+                    <ellipse cx="178" cy="75" rx="96" ry="46" fill="#f9f6ea"/>
+                    <ellipse cx="178" cy="70" rx="85" ry="38" fill="url(#bowlCream)"/>
+                    <ellipse cx="178" cy="69" rx="76" ry="32" fill="#fdfbf4"/>
+                    <path d="M108 68c12 19 55 28 95 19 24-6 39-15 51-26-5 31-32 48-75 48-39 0-66-16-71-41Z" fill="#c58e54" opacity=".22"/>
+                    <g>
+                      <ellipse cx="145" cy="63" rx="22" ry="14" fill="#d9a15f" transform="rotate(-11 145 63)"/>
+                      <ellipse cx="173" cy="58" rx="23" ry="14" fill="#c98e50" transform="rotate(8 173 58)"/>
+                      <ellipse cx="201" cy="65" rx="22" ry="13" fill="#d9a15f" transform="rotate(-3 201 65)"/>
+                      <path d="M132 60c9-5 18-4 25 1M162 55c8-5 17-3 23 2M190 63c8-3 15-2 21 1" stroke="#a96e38" stroke-width="2" opacity=".5"/>
+                    </g>
+                    <g fill="#4f8456">
+                      <circle cx="127" cy="74" r="9"/>
+                      <circle cx="137" cy="80" r="8"/>
+                      <circle cx="119" cy="82" r="7"/>
+                      <circle cx="225" cy="74" r="10"/>
+                      <circle cx="236" cy="79" r="8"/>
+                    </g>
+                    <g fill="#f2c85d">
+                      <rect x="153" y="76" width="10" height="7" rx="2" transform="rotate(12 153 76)"/>
+                      <rect x="174" y="79" width="9" height="6" rx="2" transform="rotate(-8 174 79)"/>
+                      <rect x="195" y="75" width="10" height="7" rx="2" transform="rotate(5 195 75)"/>
+                    </g>
+                    <g fill="#fff8df" opacity=".75">
+                      <ellipse cx="174" cy="94" rx="56" ry="9"/>
+                    </g>
+                  </g>
+                  <g stroke="#fff" stroke-width="2" opacity=".45">
+                    <path d="M239 48c8-10 16-11 25-8M249 58c7-7 13-8 21-6"/>
+                  </g>
+                </svg>
+                <span class="meal-badge"><svg class="icon" aria-hidden="true"><use href="#i-sparkles"></use></svg>最省心</span>
+              </div>
+              <div class="meal-body">
+                <div class="meal-topline">
+                  <h3 class="meal-title">清蒸香菇滑鸡饭</h3>
+                  <span class="rating"><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg>4.8</span>
+                </div>
+                <div class="shop-line">
+                  <span>米村拌饭 · 国贸店</span><span class="dot"></span><span>清蒸</span>
+                </div>
+                <div class="reason-list">
+                  <span class="reason-chip"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>不含香菜</span>
+                  <span class="reason-chip neutral"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>蒸制更清爽</span>
+                </div>
+                <div class="meal-review">
+                  <svg class="icon" aria-hidden="true"><use href="#i-message"></use></svg>
+                  <span>“鸡肉很嫩，香菜也真的没有。”</span>
+                  <b>林**</b>
+                </div>
+                <div class="ticket-divider"></div>
+                <div class="meal-footer">
+                  <div>
+                    <div class="price-line">
+                      <span class="price">26</span>
+                      <span class="delivery"><svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg>约 24 分钟</span>
+                    </div>
+                  </div>
+                  <div class="meal-actions">
+                    <button class="feedback-button" type="button" data-feedback="chicken" aria-label="不想吃清蒸香菇滑鸡饭" title="不想吃">
+                      <svg class="icon" aria-hidden="true"><use href="#i-thumbs-down"></use></svg>
+                    </button>
+                    <button class="choose-button" type="button" data-choose="chicken">就这个</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="meal-card" data-meal="noodle">
+              <span class="rank-badge">TOP 2</span>
+              <div class="meal-visual">
+                <svg viewBox="0 0 342 126" preserveAspectRatio="xMidYMid slice" role="img" aria-label="番茄牛腩荞麦面插画">
+                  <defs>
+                    <linearGradient id="noodleBg" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0" stop-color="#f5dfbc"/>
+                      <stop offset="1" stop-color="#e6bd84"/>
+                    </linearGradient>
+                    <linearGradient id="soupRed" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="#d75b36"/>
+                      <stop offset="1" stop-color="#b53e27"/>
+                    </linearGradient>
+                    <filter id="noodleShadow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feDropShadow dx="0" dy="7" stdDeviation="8" flood-color="#69432a" flood-opacity=".24"/>
+                    </filter>
+                  </defs>
+                  <rect width="342" height="126" fill="url(#noodleBg)"/>
+                  <path d="M0 90c42-14 91 12 134 1 46-12 79-8 111 1 34 9 67 2 97-8v42H0Z" fill="#d9aa70" opacity=".45"/>
+                  <circle cx="294" cy="24" r="28" fill="#f9ebd3" opacity=".5"/>
+                  <ellipse cx="177" cy="121" rx="101" ry="17" fill="#6b4028" opacity=".15"/>
+                  <g filter="url(#noodleShadow)">
+                    <ellipse cx="177" cy="74" rx="97" ry="47" fill="#f7edda"/>
+                    <ellipse cx="177" cy="69" rx="86" ry="39" fill="#2f3034"/>
+                    <ellipse cx="177" cy="68" rx="78" ry="33" fill="url(#soupRed)"/>
+                    <g fill="none" stroke="#e9c77a" stroke-width="3.4" stroke-linecap="round">
+                      <path d="M118 67c15-12 25 9 38-5s25 8 38-3 22 6 35-1"/>
+                      <path d="M124 78c15-10 23 7 36-3s24 5 36-4 25 6 38-4"/>
+                      <path d="M138 54c12-8 20 7 31-1s20 5 31-3 19 4 28-2"/>
+                    </g>
+                    <g fill="#7b3d2b">
+                      <rect x="137" y="61" width="22" height="16" rx="5" transform="rotate(13 137 61)"/>
+                      <rect x="190" y="68" width="24" height="17" rx="5" transform="rotate(-9 190 68)"/>
+                      <rect x="167" y="49" width="20" height="15" rx="5" transform="rotate(7 167 49)"/>
+                    </g>
+                    <g fill="#5b8a49">
+                      <circle cx="128" cy="70" r="8"/>
+                      <circle cx="137" cy="76" r="7"/>
+                      <circle cx="224" cy="68" r="9"/>
+                    </g>
+                    <g fill="#f0b84b">
+                      <rect x="153" y="77" width="9" height="6" rx="2" transform="rotate(10 153 77)"/>
+                      <rect x="207" y="57" width="8" height="6" rx="2" transform="rotate(-12 207 57)"/>
+                    </g>
+                  </g>
+                  <g stroke="#fff" stroke-width="2" opacity=".38">
+                    <path d="M238 45c8-8 16-10 25-5M252 55c6-5 12-6 19-4"/>
+                  </g>
+                </svg>
+                <span class="meal-badge"><svg class="icon" aria-hidden="true"><use href="#i-refresh"></use></svg>换个口味</span>
+              </div>
+              <div class="meal-body">
+                <div class="meal-topline">
+                  <h3 class="meal-title">番茄牛腩荞麦面</h3>
+                  <span class="rating"><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg>4.7</span>
+                </div>
+                <div class="shop-line">
+                  <span>小满手作面馆</span><span class="dot"></span><span>炖煮</span>
+                </div>
+                <div class="reason-list">
+                  <span class="reason-chip"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>今天换个口味</span>
+                  <span class="reason-chip neutral"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>有主食更顶饱</span>
+                </div>
+                <div class="meal-review">
+                  <svg class="icon" aria-hidden="true"><use href="#i-message"></use></svg>
+                  <span>“汤头浓但不油，面量刚好。”</span>
+                  <b>周**</b>
+                </div>
+                <div class="ticket-divider"></div>
+                <div class="meal-footer">
+                  <div>
+                    <div class="price-line">
+                      <span class="price">29</span>
+                      <span class="delivery"><svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg>约 28 分钟</span>
+                    </div>
+                  </div>
+                  <div class="meal-actions">
+                    <button class="feedback-button" type="button" data-feedback="noodle" aria-label="不想吃番茄牛腩荞麦面" title="不想吃">
+                      <svg class="icon" aria-hidden="true"><use href="#i-thumbs-down"></use></svg>
+                    </button>
+                    <button class="choose-button" type="button" data-choose="noodle">就这个</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="meal-card" data-meal="salmon">
+              <span class="rank-badge">TOP 3</span>
+              <div class="meal-visual">
+                <svg viewBox="0 0 342 126" preserveAspectRatio="xMidYMid slice" role="img" aria-label="香煎三文鱼谷物碗插画">
+                  <defs>
+                    <linearGradient id="salmonBg" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0" stop-color="#dbe8dd"/>
+                      <stop offset="1" stop-color="#a9c9b8"/>
+                    </linearGradient>
+                    <linearGradient id="grainBowl" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="#fffef8"/>
+                      <stop offset="1" stop-color="#e9e4d6"/>
+                    </linearGradient>
+                    <filter id="salmonShadow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#385a48" flood-opacity=".21"/>
+                    </filter>
+                  </defs>
+                  <rect width="342" height="126" fill="url(#salmonBg)"/>
+                  <path d="M0 86c48-16 79 15 125-1 44-15 82-7 123 2 33 7 63 2 94-9v48H0Z" fill="#8fb6a0" opacity=".38"/>
+                  <circle cx="36" cy="25" r="22" fill="#eef7ee" opacity=".5"/>
+                  <ellipse cx="178" cy="120" rx="99" ry="17" fill="#355242" opacity=".14"/>
+                  <g filter="url(#salmonShadow)">
+                    <ellipse cx="178" cy="74" rx="96" ry="47" fill="#f8f6ed"/>
+                    <ellipse cx="178" cy="68" rx="85" ry="38" fill="url(#grainBowl)"/>
+                    <ellipse cx="178" cy="67" rx="76" ry="31" fill="#f8f3df"/>
+                    <g fill="#d7be7a" opacity=".9">
+                      <circle cx="132" cy="63" r="3"/><circle cx="144" cy="73" r="2.4"/><circle cx="156" cy="56" r="2.7"/>
+                      <circle cx="170" cy="68" r="2.3"/><circle cx="188" cy="56" r="2.8"/><circle cx="206" cy="70" r="2.5"/>
+                      <circle cx="221" cy="61" r="2.4"/><circle cx="144" cy="54" r="2"/><circle cx="201" cy="52" r="2.2"/>
+                    </g>
+                    <g>
+                      <path d="M154 52c14-12 30-9 39 1 6 7 3 18-6 22-13 6-31 2-39-7-6-8-2-12 6-16Z" fill="#f18b69"/>
+                      <path d="M161 56c9-6 20-5 27 1M165 63c7-4 15-3 21 1M171 70c5-2 10-1 14 2" stroke="#ffd5bd" stroke-width="2.2" opacity=".72"/>
+                    </g>
+                    <g fill="#6d9b58">
+                      <path d="M126 67c9-16 22-12 24 3-8 10-17 10-24-3Z"/>
+                      <path d="M215 78c4-18 17-19 25-5-4 13-14 17-25 5Z"/>
+                      <circle cx="132" cy="83" r="8"/>
+                      <circle cx="221" cy="57" r="8"/>
+                    </g>
+                    <g fill="#e95e45">
+                      <circle cx="183" cy="83" r="7"/>
+                      <circle cx="196" cy="86" r="6"/>
+                      <circle cx="147" cy="86" r="6"/>
+                    </g>
+                    <g fill="#f0c963">
+                      <circle cx="210" cy="48" r="5"/>
+                      <circle cx="118" cy="59" r="4"/>
+                    </g>
+                  </g>
+                  <g stroke="#fff" stroke-width="2" opacity=".42">
+                    <path d="M243 44c8-9 16-10 25-6M255 56c6-5 12-7 19-4"/>
+                  </g>
+                </svg>
+                <span class="meal-badge"><svg class="icon" aria-hidden="true"><use href="#i-heart"></use></svg>轻盈一点</span>
+              </div>
+              <div class="meal-body">
+                <div class="meal-topline">
+                  <h3 class="meal-title">香煎三文鱼谷物碗</h3>
+                  <span class="rating"><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg>4.9</span>
+                </div>
+                <div class="shop-line">
+                  <span>一亩沙拉 · CBD店</span><span class="dot"></span><span>轻煎</span>
+                </div>
+                <div class="reason-list">
+                  <span class="reason-chip"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>轻煎不油腻</span>
+                  <span class="reason-chip neutral"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>最近没吃过</span>
+                </div>
+                <div class="meal-review">
+                  <svg class="icon" aria-hidden="true"><use href="#i-message"></use></svg>
+                  <span>“蔬菜很新鲜，下午不容易困。”</span>
+                  <b>Kiki**</b>
+                </div>
+                <div class="ticket-divider"></div>
+                <div class="meal-footer">
+                  <div>
+                    <div class="price-line">
+                      <span class="price">34</span>
+                      <span class="delivery"><svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg>约 25 分钟</span>
+                    </div>
+                  </div>
+                  <div class="meal-actions">
+                    <button class="feedback-button" type="button" data-feedback="salmon" aria-label="不想吃香煎三文鱼谷物碗" title="不想吃">
+                      <svg class="icon" aria-hidden="true"><use href="#i-thumbs-down"></use></svg>
+                    </button>
+                    <button class="choose-button" type="button" data-choose="salmon">就这个</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="meal-card backup-card" data-meal="tofu" hidden>
+              <span class="rank-badge">TOP 4</span>
+              <div class="meal-body" style="padding-top:42px">
+                <div class="meal-topline">
+                  <h3 class="meal-title">菌菇豆腐煲配糙米饭</h3>
+                  <span class="rating"><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg>4.8</span>
+                </div>
+                <div class="shop-line">
+                  <span>菜根小馆 · 建外店</span><span class="dot"></span><span>焖煮</span>
+                </div>
+                <div class="reason-list">
+                  <span class="reason-chip"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>忌口都避开</span>
+                  <span class="reason-chip neutral"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>焖煮有主食</span>
+                </div>
+                <div class="meal-review">
+                  <svg class="icon" aria-hidden="true"><use href="#i-message"></use></svg>
+                  <span>“豆腐入味，糙米也很香。”</span>
+                  <b>王**</b>
+                </div>
+                <div class="ticket-divider"></div>
+                <div class="meal-footer">
+                  <div class="price-line">
+                    <span class="price">27</span>
+                    <span class="delivery"><svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg>约 27 分钟</span>
+                  </div>
+                  <div class="meal-actions">
+                    <button class="feedback-button" type="button" data-feedback="tofu" aria-label="不想吃菌菇豆腐煲" title="不想吃">
+                      <svg class="icon" aria-hidden="true"><use href="#i-thumbs-down"></use></svg>
+                    </button>
+                    <button class="choose-button" type="button" data-choose="tofu">就这个</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="empty-state" id="emptyState">
+            <strong>今天想换个方向，我懂。</strong>
+            <p>把偏好松一松，午午再替你找找。</p>
+            <button type="button" id="emptyAdjustButton">去调整规则</button>
+          </div>
+
+          <div class="nudge-row">
+            <span class="nudge-note">还是拿不定主意？</span>
+            <button class="nudge-button" id="allNoButton" type="button">都不太想吃</button>
+          </div>
+        </section>
+
+        <section class="encouragement" aria-label="午间打气">
+          <span class="encouragement-icon" aria-hidden="true">
+            <svg class="icon"><use href="#i-heart"></use></svg>
+          </span>
+          <p>先吃饭，再解决下午的难题。选一个顺眼的就好。
+            <span>午午会一直在这儿，陪你少纠结一点。</span>
+          </p>
+        </section>
+
+        <p class="app-footnote">餐品来自小王外卖商家 · 口味只用来帮你挑午饭</p>
+      </div>
+    </div>
+
+    <nav class="bottom-nav" id="lunchNav" aria-label="底部导航" hidden>
+      <button class="nav-button active" type="button" aria-current="page">
+        <svg class="icon" aria-hidden="true"><use href="#i-home"></use></svg>
+        <span>午饭</span>
+      </button>
+      <button class="nav-button" type="button" data-nav="orders">
+        <svg class="icon" aria-hidden="true"><use href="#i-receipt"></use></svg>
+        <span>订单</span>
+      </button>
+      <button class="nav-button" type="button" data-nav="profile">
+        <svg class="icon" aria-hidden="true"><use href="#i-user"></use></svg>
+        <span>我的</span>
+      </button>
+    </nav>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <div class="overlay" id="overlay" aria-hidden="true">
+      <section class="sheet onboarding-sheet" id="onboardingSheet" role="dialog" aria-modal="true" aria-labelledby="onboardingTitle">
+        <div class="sheet-handle" aria-hidden="true"></div>
+        <div class="sheet-head">
+          <div class="onboarding-head-main">
+            <div>
+              <h2 class="sheet-title" id="onboardingTitle">先认识一下你的午饭</h2>
+              <p class="sheet-subtitle">选三步，以后午午先替你挑。</p>
+            </div>
+          </div>
+          <button class="close-button" type="button" data-close aria-label="关闭偏好设置" title="关闭">
+            <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
+          </button>
+        </div>
+        <div class="sheet-body">
+          <div class="onboarding-progress">
+            <div class="onboarding-track" aria-hidden="true"><span id="onboardingProgress"></span></div>
+            <span class="onboarding-count" id="onboardingCount">1 / 3</span>
+          </div>
+
+          <div class="onboarding-step active" data-onboarding-step="1">
+            <h3 class="question-title">有不吃的吗？</h3>
+            <p class="question-help">先选类型，再点食材；也可以另外填写。</p>
+            <div class="hard-type-tabs" id="hardTypeTabs">
+              <button type="button" data-hard-type="不喜欢" aria-pressed="true">不喜欢</button>
+              <button type="button" data-hard-type="过敏原" aria-pressed="false">过敏原</button>
+            </div>
+            <div class="onboarding-choices" id="onboardingHardChoices"></div>
+            <div class="custom-constraint" id="customConstraintRow" hidden>
+              <input id="customHardInput" type="text" maxlength="10" placeholder="例如：芹菜" aria-label="填写其他忌口">
+              <button id="addCustomHard" type="button" aria-label="加入自定义忌口" title="加入">
+                <svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg>
+              </button>
+            </div>
+            <div class="hard-summary" id="hardSummary">还没有选择</div>
+            <div class="onboarding-tip">
+              <svg class="icon" aria-hidden="true"><use href="#i-info"></use></svg>
+              <span>“不喜欢”会尽量避开，“过敏原”一定不推荐。</span>
+            </div>
+          </div>
+
+          <div class="onboarding-step" data-onboarding-step="2">
+            <h3 class="question-title">想吃得怎样？</h3>
+            <p class="question-help">已经按照您的历史胃口选择如下～看看吧</p>
+            <div class="hashtag-meta">
+              <span>菜系、口味、成分与品牌</span>
+              <span class="hashtag-count" id="hashtagCount">0 / 5</span>
+            </div>
+            <div class="hashtag-grid" id="onboardingHashtags"></div>
+            <div class="onboarding-tip">
+              <svg class="icon" aria-hidden="true"><use href="#i-info"></use></svg>
+              <span>标签来自小王外卖商家的口味、品类和品牌标记。</span>
+            </div>
+          </div>
+
+          <div class="onboarding-step" data-onboarding-step="3">
+            <h3 class="question-title">预算和重复频次</h3>
+            <p class="question-help">定个范围，之后也能改。</p>
+            <div class="chip-row" id="onboardingBudget">
+              <button class="budget-choice" type="button" data-budget="15-25" aria-pressed="false">¥15-25</button>
+              <button class="budget-choice" type="button" data-budget="20-30" aria-pressed="false">¥20-30</button>
+              <button class="budget-choice" type="button" data-budget="25-35" aria-pressed="true">¥25-35</button>
+              <button class="budget-choice" type="button" data-budget="35-50" aria-pressed="false">¥35-50</button>
+              <button class="budget-choice" type="button" data-budget="50-80" aria-pressed="false">¥50-80</button>
+              <button class="budget-choice" type="button" data-budget="custom" aria-pressed="false">另外</button>
+            </div>
+            <div class="custom-budget" id="customBudget" hidden>
+              <label class="price-input-wrap">
+                <span>¥</span>
+                <input id="budgetMinInput" type="number" min="1" max="999" inputmode="numeric" aria-label="最低预算">
+              </label>
+              <span aria-hidden="true">—</span>
+              <label class="price-input-wrap">
+                <span>¥</span>
+                <input id="budgetMaxInput" type="number" min="1" max="999" inputmode="numeric" aria-label="最高预算">
+              </label>
+            </div>
+            <p class="question-help" style="margin-top:16px;margin-bottom:0">多久不重复？</p>
+            <div class="repeat-segment" id="onboardingRepeatFrequency">
+              <button type="button" data-repeat="2-3天" aria-pressed="true">2-3天不重复</button>
+              <button type="button" data-repeat="一周" aria-pressed="false">一周不重复</button>
+              <button type="button" data-repeat="都可以" aria-pressed="false">都可以</button>
+            </div>
+          </div>
+
+          <div class="onboarding-actions">
+            <button class="onboarding-back" id="onboardingBack" type="button" disabled>上一步</button>
+            <button class="primary-button" id="onboardingNext" type="button" disabled>下一步</button>
+          </div>
+          <button class="onboarding-skip" id="onboardingSkip" type="button">直接跳过</button>
+        </div>
+      </section>
+
+      <section class="sheet" id="ruleSheet" role="dialog" aria-modal="true" aria-labelledby="ruleSheetTitle">
+        <div class="sheet-handle" aria-hidden="true"></div>
+        <div class="sheet-head">
+          <div>
+            <h2 class="sheet-title" id="ruleSheetTitle">午午的午饭规则</h2>
+            <p class="sheet-subtitle">存好一次，午饭不用反复挑。</p>
+          </div>
+          <button class="close-button" type="button" data-close aria-label="关闭规则设置" title="关闭">
+            <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
+          </button>
+        </div>
+        <div class="sheet-body">
+          <fieldset class="form-section">
+            <legend>绝对不吃</legend>
+            <p class="section-help">你不吃的，午午都记牢。</p>
+            <div class="chip-row" id="hardChips">
+              <button class="choice-chip" type="button" data-hard="香菜" aria-pressed="true">香菜</button>
+              <button class="choice-chip" type="button" data-hard="花生" aria-pressed="false">花生</button>
+              <button class="choice-chip" type="button" data-hard="海鲜" aria-pressed="false">海鲜</button>
+              <button class="choice-chip" type="button" data-hard="内脏" aria-pressed="false">内脏</button>
+              <button class="choice-chip" type="button" data-hard-none aria-pressed="false">暂无</button>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-section">
+            <legend>午饭偏好</legend>
+            <p class="section-help">先按你的习惯选好，随时能改。</p>
+            <div class="toggle-list">
+              <label class="toggle-row">
+                <span class="toggle-copy">
+                  <strong>优先少油少炸</strong>
+                  <span>清淡一点，下午更轻松</span>
+                </span>
+                <span class="switch">
+                  <input id="lightOilToggle" type="checkbox" checked>
+                  <span class="switch-track" aria-hidden="true"></span>
+                </span>
+              </label>
+              <label class="toggle-row">
+                <span class="toggle-copy">
+                  <strong>尽量有主食</strong>
+                  <span>有饭有面，更顶饱</span>
+                </span>
+                <span class="switch">
+                  <input id="stapleToggle" type="checkbox" checked>
+                  <span class="switch-track" aria-hidden="true"></span>
+                </span>
+              </label>
+              <label class="toggle-row">
+                <span class="toggle-copy">
+                  <strong>不与昨天重复</strong>
+                  <span>昨天吃过的，今天先缓缓</span>
+                </span>
+                <span class="switch">
+                  <input id="repeatToggle" type="checkbox" checked>
+                  <span class="switch-track" aria-hidden="true"></span>
+                </span>
+              </label>
+            </div>
+            <div class="min-budget-row">
+              <span>午餐预算 · 配送时长</span>
+              <strong>¥25–35 · 35分钟内</strong>
+            </div>
+          </fieldset>
+
+          <div class="sheet-actions">
+            <button class="primary-button" id="saveRulesButton" type="button">存好，看看午饭</button>
+            <button class="text-button" id="skipRulesButton" type="button">先不设置，直接看看</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="sheet" id="feedbackSheet" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
+        <div class="sheet-handle" aria-hidden="true"></div>
+        <div class="sheet-head">
+          <div>
+            <h2 class="sheet-title" id="feedbackTitle">哪一点不太对？</h2>
+            <p class="sheet-subtitle" id="feedbackSubtitle">告诉午午，下次挑得更合口。</p>
+          </div>
+          <button class="close-button" type="button" data-close aria-label="关闭反馈" title="关闭">
+            <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
+          </button>
+        </div>
+        <div class="sheet-body">
+          <div class="feedback-options" id="feedbackOptions">
+            <button class="feedback-option" type="button" data-feedback-option="category">
+              <span class="feedback-option-icon"><svg class="icon" aria-hidden="true"><use href="#i-category"></use></svg></span>
+              <span class="feedback-option-copy"><strong>不想吃这个主菜类别</strong><span>同类主菜近两周降权</span></span>
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+            </button>
+            <button class="feedback-option" type="button" data-feedback-option="cuisine">
+              <span class="feedback-option-icon"><svg class="icon" aria-hidden="true"><use href="#i-chef"></use></svg></span>
+              <span class="feedback-option-copy"><strong>不想吃这个菜系</strong><span>只少推这个菜系</span></span>
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+            </button>
+            <button class="feedback-option" type="button" data-feedback-option="oil">
+              <span class="feedback-option-icon"><svg class="icon" aria-hidden="true"><use href="#i-sliders"></use></svg></span>
+              <span class="feedback-option-copy"><strong>做法太油 / 不合适</strong><span>加强清淡做法排序</span></span>
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+            </button>
+            <button class="feedback-option" type="button" data-feedback-option="store">
+              <span class="feedback-option-icon"><svg class="icon" aria-hidden="true"><use href="#i-store"></use></svg></span>
+              <span class="feedback-option-copy"><strong>不想吃这家店</strong><span>只少推这家店</span></span>
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+            </button>
+            <button class="feedback-option" type="button" data-feedback-option="dish">
+              <span class="feedback-option-icon"><svg class="icon" aria-hidden="true"><use href="#i-more"></use></svg></span>
+              <span class="feedback-option-copy"><strong>只是这道菜</strong><span>只换掉这一次</span></span>
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+            </button>
+          </div>
+          <div class="privacy-note">
+            <svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg>
+            <span>反馈只影响你的推荐，不做广告竞价排名。</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="sheet" id="orderSheet" role="dialog" aria-modal="true" aria-labelledby="orderTitle">
+        <div class="sheet-handle" aria-hidden="true"></div>
+        <div class="sheet-head">
+          <div>
+            <h2 class="sheet-title" id="orderTitle">就吃这份</h2>
+            <p class="sheet-subtitle">先把肚子照顾好，下午的事下午再说。</p>
+          </div>
+          <button class="close-button" type="button" data-close aria-label="关闭订单确认" title="关闭">
+            <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
+          </button>
+        </div>
+        <div class="sheet-body">
+          <div class="order-summary">
+            <h3 class="order-meal-name" id="orderMealName">清蒸香菇滑鸡饭</h3>
+            <p class="order-shop" id="orderShopName">米村拌饭 · 国贸店</p>
+            <div class="ticket-divider"></div>
+            <div class="order-row"><span>送达地址</span><strong>财富中心 A 座 18F</strong></div>
+            <div class="order-row"><span>预计送达</span><strong>12:08 左右</strong></div>
+            <div class="order-row"><span>本单合计</span><strong class="order-price" id="orderPrice">26</strong></div>
+          </div>
+          <p class="tiny-note">这里只是演示，不会产生真实订单。</p>
+          <div class="sheet-actions" style="padding-bottom: max(13px, env(safe-area-inset-bottom))">
+            <button class="primary-button" id="confirmOrderButton" type="button">去确认订单</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="sheet" id="settingsSheet" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+        <div class="sheet-handle" aria-hidden="true"></div>
+        <div class="sheet-head">
+          <div>
+            <h2 class="sheet-title" id="settingsTitle">午午记得的偏好</h2>
+            <p class="sheet-subtitle">都能改，也能随时删掉。</p>
+          </div>
+          <button class="close-button" type="button" data-close aria-label="关闭午饭偏好" title="关闭">
+            <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
+          </button>
+        </div>
+        <div class="sheet-body">
+          <div class="settings-block">
+            <h3 class="settings-block-title">这些会用来挑今天的午饭</h3>
+            <p class="settings-block-copy">餐品来自小王外卖商家。</p>
+            <div class="tag-list" id="tagList">
+              <span class="tag">避开香菜<button type="button" data-remove-tag="hard" aria-label="删除避开香菜标签" title="删除标签"><svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg></button></span>
+              <span class="tag">优先少油<button type="button" data-remove-tag="oil" aria-label="删除优先少油标签" title="删除标签"><svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg></button></span>
+              <span class="tag">尽量有主食<button type="button" data-remove-tag="staple" aria-label="删除尽量有主食标签" title="删除标签"><svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg></button></span>
+              <span class="tag">避开昨日主菜<button type="button" data-remove-tag="repeat" aria-label="删除避开昨日主菜标签" title="删除标签"><svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg></button></span>
+            </div>
+            <details class="explain-box">
+              <summary>
+                为什么是这几道？
+                <svg class="icon" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
+              </summary>
+              <p class="explain-copy">午午先避开忌口，再按口味标签、重复频次和公开评分来挑。排序不卖推荐位。</p>
+            </details>
+            <div class="privacy-note">
+              <svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg>
+              <span>这些偏好只用来帮你挑午饭。</span>
+            </div>
+          </div>
+
+          <div class="settings-block">
+            <button class="text-button" type="button" id="editPreferencesButton" style="padding:0;color:var(--ink)">
+              重新设置午饭偏好
+              <svg class="icon" aria-hidden="true" style="width:13px;height:13px;vertical-align:-2px;margin-left:3px"><use href="#i-arrow-right"></use></svg>
+            </button>
+          </div>
+
+          <div class="settings-block" style="padding-bottom:4px">
+            <button class="text-button" type="button" id="resetPreferencesButton" style="padding:0;color:var(--red)">
+              <svg class="icon" aria-hidden="true" style="width:13px;height:13px;vertical-align:-2px;margin-right:4px"><use href="#i-trash"></use></svg>
+              清空午午的记忆
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const ONBOARDING_KEY = "wow-lunch-onboarding-v3";
+    const HARD_OPTIONS = {
+      "不喜欢": ["香菜", "动物内脏", "葱姜蒜", "芹菜", "苦瓜", "肥肉", "海鲜", "重辣", "重油", "酸味"],
+      "过敏原": ["花生", "坚果", "海鲜", "牛奶", "鸡蛋", "麸质", "大豆", "芒果"]
+    };
+    const HASHTAG_GROUPS = [
+      { title: "菜系", items: ["川湘菜", "粤菜", "江浙菜", "日料", "韩餐"] },
+      { title: "口味", items: ["少油", "清淡", "微辣", "酸甜", "热乎的"] },
+      { title: "成分", items: ["高蛋白", "多蔬菜", "粗粮", "面食", "米饭党"] },
+      { title: "品牌", items: ["常点品牌", "连锁品牌", "附近新店", "老字号", "新消费品牌"] }
+    ];
+    const DEFAULT_HASHTAGS = ["少油", "微辣", "米饭党", "常点品牌"];
+
+    const $ = (selector, root = document) => root.querySelector(selector);
+    const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>"']/g, (character) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      })[character]);
+    }
+
+    function normalizeHard(items) {
+      if (!Array.isArray(items)) return [];
+      return items
+        .map((item) => {
+          if (typeof item === "string") return { name: item, type: "不喜欢" };
+          return {
+            name: String(item?.name || "").trim(),
+            type: item?.type === "过敏原" ? "过敏原" : "不喜欢"
+          };
+        })
+        .filter((item) => item.name);
+    }
+
+    function readPreference() {
+      try {
+        const saved = window.localStorage.getItem(ONBOARDING_KEY);
+        return saved ? JSON.parse(saved) : null;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function writePreference() {
+      try {
+        window.localStorage.setItem(ONBOARDING_KEY, JSON.stringify({
+          hard: state.hard,
+          hashtags: state.hashtags,
+          lightOil: state.lightOil,
+          staple: state.staple,
+          noRepeat: state.noRepeat,
+          budgetPreset: state.budgetPreset,
+          budgetMin: state.budgetMin,
+          budgetMax: state.budgetMax,
+          repeatFrequency: state.repeatFrequency
+        }));
+      } catch (error) {
+        // The demo still works when local storage is unavailable.
+      }
+    }
+
+    function clearPreference() {
+      try {
+        window.localStorage.removeItem(ONBOARDING_KEY);
+      } catch (error) {
+        // Ignore storage restrictions in file previews.
+      }
+    }
+
+    const savedPreference = readPreference();
+    const state = {
+      hard: normalizeHard(savedPreference?.hard),
+      hashtags: Array.isArray(savedPreference?.hashtags) ? savedPreference.hashtags.slice(0, 5) : [],
+      lightOil: savedPreference?.lightOil ?? true,
+      staple: savedPreference?.staple ?? true,
+      noRepeat: savedPreference?.noRepeat ?? true,
+      budgetPreset: savedPreference?.budgetPreset ?? savedPreference?.budget ?? "25-35",
+      budgetMin: Number(savedPreference?.budgetMin ?? 25),
+      budgetMax: Number(savedPreference?.budgetMax ?? 35),
+      repeatFrequency: savedPreference?.repeatFrequency ?? "2-3天",
+      activeMeal: null,
+      feedbackMeal: null
+    };
+
+    const onboardingState = {
+      step: 1,
+      hard: [],
+      hardType: "不喜欢",
+      confirmedHard: false,
+      customOpen: false,
+      hashtags: [...DEFAULT_HASHTAGS],
+      budgetPreset: "25-35",
+      budgetMin: 25,
+      budgetMax: 35,
+      repeatFrequency: "2-3天"
+    };
+
+    const mealData = {
+      chicken: { name: "清蒸香菇滑鸡饭", shop: "米村拌饭 · 国贸店", price: 26 },
+      noodle: { name: "番茄牛腩荞麦面", shop: "小满手作面馆", price: 29 },
+      salmon: { name: "香煎三文鱼谷物碗", shop: "一亩沙拉 · CBD店", price: 34 },
+      tofu: { name: "菌菇豆腐煲配糙米饭", shop: "菜根小馆 · 建外店", price: 27 }
+    };
+
+    const overlay = $("#overlay");
+    const toast = $("#toast");
+    const appScreen = $("#appScreen");
+    const platformHome = $("#platformHome");
+    const lunchNav = $("#lunchNav");
+    let activeSheet = null;
+    let lastFocused = null;
+    let toastTimer = null;
+
+    function showToast(message) {
+      window.clearTimeout(toastTimer);
+      toast.textContent = message;
+      toast.classList.add("show");
+      toastTimer = window.setTimeout(() => toast.classList.remove("show"), 2200);
+    }
+
+    function openSheet(id) {
+      lastFocused = document.activeElement;
+      $$(".sheet", overlay).forEach((sheet) => sheet.classList.remove("active"));
+      const sheet = document.getElementById(id);
+      if (!sheet) return;
+      activeSheet = sheet;
+      sheet.classList.add("active");
+      overlay.classList.add("open");
+      overlay.setAttribute("aria-hidden", "false");
+      const firstFocusable = $("button, summary, input", sheet);
+      window.setTimeout(() => firstFocusable?.focus(), 80);
+    }
+
+    function closeSheet() {
+      overlay.classList.remove("open");
+      overlay.setAttribute("aria-hidden", "true");
+      window.setTimeout(() => {
+        $$(".sheet", overlay).forEach((sheet) => sheet.classList.remove("active"));
+        activeSheet = null;
+      }, 240);
+      if (lastFocused && typeof lastFocused.focus === "function" && lastFocused.offsetParent !== null) {
+        lastFocused.focus();
+      }
+    }
+
+    function updateRules() {
+      const names = state.hard.map((item) => item.name);
+      const hardText = names.length ? `避开${names.join("、")}` : "忌口不限";
+      const repeatText = state.repeatFrequency === "都可以" ? "随心情重复" : `${state.repeatFrequency}不重复`;
+      const budgetText = `¥${state.budgetMin}-${state.budgetMax}`;
+      $("#ruleText").textContent = `${hardText} · ${repeatText} · ${budgetText}`;
+
+      const noteTitle = names.includes("香菜") ? "香菜已避开" : names.length ? "忌口已避开" : "偏好收好啦";
+      const noteBody = state.hashtags.length
+        ? `按 #${escapeHTML(state.hashtags[0])} 帮你挑。`
+        : "今天想吃点什么？";
+      $(".assistant-note").innerHTML =
+        `<div class="assistant-face" aria-hidden="true">午</div><strong>${escapeHTML(noteTitle)}</strong>${noteBody}`;
+      renderTagList();
+    }
+
+    function renderTagList() {
+      const tags = [];
+      state.hard.forEach((item) => {
+        const label = item.type === "过敏原" ? `过敏${item.name}` : `不吃${item.name}`;
+        tags.push({ label, remove: `hard:${item.name}` });
+      });
+      state.hashtags.forEach((item) => {
+        tags.push({ label: `#${item}`, remove: `hashtag:${item}` });
+      });
+      if (state.repeatFrequency !== "都可以") {
+        tags.push({ label: `${state.repeatFrequency}不重复`, remove: "repeat" });
+      }
+
+      $("#tagList").innerHTML = tags.length
+        ? tags.map((tag) => {
+            const safeLabel = escapeHTML(tag.label);
+            const safeRemove = escapeHTML(tag.remove);
+            return `<span class="tag">${safeLabel}<button type="button" data-remove-tag="${safeRemove}" aria-label="删除${safeLabel}偏好" title="删除偏好"><svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg></button></span>`;
+          }).join("")
+        : '<span class="tag" style="color:var(--ink-soft);background:#efeee8">还没设置偏好</span>';
+    }
+
+    function syncRuleSheet() {
+      $$("[data-hard]", $("#hardChips")).forEach((chip) => {
+        chip.setAttribute("aria-pressed", String(state.hard.some((item) => item.name === chip.dataset.hard)));
+      });
+      $("[data-hard-none]", $("#hardChips")).setAttribute("aria-pressed", String(state.hard.length === 0));
+      if ($("#lightOilToggle")) $("#lightOilToggle").checked = state.lightOil;
+      if ($("#stapleToggle")) $("#stapleToggle").checked = state.staple;
+      if ($("#repeatToggle")) $("#repeatToggle").checked = state.noRepeat;
+    }
+
+    function renderHardOptions() {
+      const container = $("#onboardingHardChoices");
+      const type = onboardingState.hardType;
+      container.innerHTML = "";
+      HARD_OPTIONS[type].forEach((name) => {
+        const button = document.createElement("button");
+        button.className = "choice-chip";
+        button.type = "button";
+        button.dataset.onboardingHard = name;
+        button.setAttribute("aria-pressed", "false");
+        button.textContent = name;
+        container.appendChild(button);
+      });
+
+      const custom = document.createElement("button");
+      custom.className = "choice-chip";
+      custom.type = "button";
+      custom.dataset.onboardingHardCustom = "";
+      custom.setAttribute("aria-pressed", "false");
+      custom.innerHTML = '<svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg>另外';
+      container.appendChild(custom);
+
+      const none = document.createElement("button");
+      none.className = "choice-chip";
+      none.type = "button";
+      none.dataset.onboardingHardNone = "";
+      none.setAttribute("aria-pressed", "false");
+      none.textContent = "都没有";
+      container.appendChild(none);
+    }
+
+    function renderHashtagOptions() {
+      const container = $("#onboardingHashtags");
+      if (container.children.length) return;
+      HASHTAG_GROUPS.forEach((group) => {
+        const section = document.createElement("div");
+        section.className = "hashtag-group";
+        const title = document.createElement("div");
+        title.className = "hashtag-group-title";
+        title.textContent = group.title;
+        const items = document.createElement("div");
+        items.className = "hashtag-group-items";
+        group.items.forEach((label) => {
+          const button = document.createElement("button");
+          button.className = "hashtag-chip";
+          button.type = "button";
+          button.dataset.hashtag = label;
+          button.setAttribute("aria-pressed", "false");
+          button.textContent = `#${label}`;
+          items.appendChild(button);
+        });
+        section.append(title, items);
+        container.appendChild(section);
+      });
+    }
+
+    function renderHardSummary() {
+      const dislikes = onboardingState.hard.filter((item) => item.type === "不喜欢").map((item) => item.name);
+      const allergens = onboardingState.hard.filter((item) => item.type === "过敏原").map((item) => item.name);
+      if (!dislikes.length && !allergens.length) {
+        $("#hardSummary").textContent = "还没有选择";
+        return;
+      }
+      const rows = [];
+      if (dislikes.length) rows.push(`<strong>不喜欢：</strong>${escapeHTML(dislikes.join("、"))}`);
+      if (allergens.length) rows.push(`<strong>过敏原：</strong>${escapeHTML(allergens.join("、"))}`);
+      $("#hardSummary").innerHTML = rows.join("<br>");
+    }
+
+    function updateBudgetFromPreset() {
+      if (onboardingState.budgetPreset === "custom") return;
+      const [min, max] = onboardingState.budgetPreset.split("-").map(Number);
+      onboardingState.budgetMin = min;
+      onboardingState.budgetMax = max;
+    }
+
+    function syncOnboardingControls() {
+      $$("[data-hard-type]", $("#hardTypeTabs")).forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.hardType === onboardingState.hardType));
+      });
+      $$("[data-onboarding-hard]", $("#onboardingHardChoices")).forEach((button) => {
+        button.setAttribute("aria-pressed", String(
+          onboardingState.hard.some((item) => item.name === button.dataset.onboardingHard)
+        ));
+      });
+      $("[data-onboarding-hard-custom]").setAttribute("aria-pressed", String(onboardingState.customOpen));
+      $("[data-onboarding-hard-none]").setAttribute(
+        "aria-pressed",
+        String(onboardingState.confirmedHard && onboardingState.hard.length === 0)
+      );
+      $("#customConstraintRow").hidden = !onboardingState.customOpen;
+      renderHardSummary();
+
+      $$("[data-hashtag]", $("#onboardingHashtags")).forEach((button) => {
+        button.setAttribute("aria-pressed", String(onboardingState.hashtags.includes(button.dataset.hashtag)));
+      });
+      $("#hashtagCount").textContent = `${onboardingState.hashtags.length} / 5`;
+
+      $$("[data-budget]", $("#onboardingBudget")).forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.budget === onboardingState.budgetPreset));
+      });
+      $("#customBudget").hidden = onboardingState.budgetPreset !== "custom";
+      $("#budgetMinInput").value = onboardingState.budgetMin || "";
+      $("#budgetMaxInput").value = onboardingState.budgetMax || "";
+
+      $$("[data-repeat]", $("#onboardingRepeatFrequency")).forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.repeat === onboardingState.repeatFrequency));
+      });
+    }
+
+    function renderOnboardingStep() {
+      $$(".onboarding-step").forEach((step) => {
+        step.classList.toggle("active", Number(step.dataset.onboardingStep) === onboardingState.step);
+      });
+      $("#onboardingProgress").style.width = `${onboardingState.step * 33.333}%`;
+      $("#onboardingCount").textContent = `${onboardingState.step} / 3`;
+      $("#onboardingBack").disabled = onboardingState.step === 1;
+      const nextButton = $("#onboardingNext");
+      nextButton.textContent = onboardingState.step === 3 ? "开始挑午饭" : "下一步";
+      nextButton.disabled = onboardingState.step === 1 && !onboardingState.confirmedHard;
+      $("#onboardingSheet .sheet-body").scrollTop = 0;
+    }
+
+    function startOnboarding(prefill) {
+      onboardingState.step = 1;
+      onboardingState.hard = prefill ? state.hard.map((item) => ({ ...item })) : [];
+      onboardingState.hardType = "不喜欢";
+      onboardingState.confirmedHard = prefill;
+      onboardingState.customOpen = false;
+      onboardingState.hashtags = prefill && state.hashtags.length
+        ? [...state.hashtags]
+        : [...DEFAULT_HASHTAGS];
+      onboardingState.budgetPreset = prefill ? state.budgetPreset : "25-35";
+      onboardingState.budgetMin = prefill ? state.budgetMin : 25;
+      onboardingState.budgetMax = prefill ? state.budgetMax : 35;
+      onboardingState.repeatFrequency = prefill ? state.repeatFrequency : "2-3天";
+      renderHardOptions();
+      syncOnboardingControls();
+      renderOnboardingStep();
+      openSheet("onboardingSheet");
+    }
+
+    function validateBudget() {
+      if (onboardingState.budgetPreset !== "custom") return true;
+      const min = Number($("#budgetMinInput").value);
+      const max = Number($("#budgetMaxInput").value);
+      if (!min || !max || min > max) {
+        showToast("预算范围再看看");
+        return false;
+      }
+      onboardingState.budgetMin = min;
+      onboardingState.budgetMax = max;
+      return true;
+    }
+
+    function finishOnboarding() {
+      if (!validateBudget()) return;
+      state.hard = onboardingState.hard.map((item) => ({ ...item }));
+      state.hashtags = [...onboardingState.hashtags];
+      state.budgetPreset = onboardingState.budgetPreset;
+      state.budgetMin = onboardingState.budgetMin;
+      state.budgetMax = onboardingState.budgetMax;
+      state.repeatFrequency = onboardingState.repeatFrequency;
+      state.noRepeat = state.repeatFrequency !== "都可以";
+      state.lightOil = ["少油", "清淡", "轻食", "低卡", "高蛋白", "蒸煮", "炖汤"]
+        .some((tag) => state.hashtags.includes(tag));
+      state.staple = ["面食", "米饭党", "粗粮", "大份量"]
+        .some((tag) => state.hashtags.includes(tag));
+      writePreference();
+      updateRules();
+      syncRuleSheet();
+      closeSheet();
+      showToast("午午记住啦，开始挑午饭");
+    }
+
+    function enterLunchPage() {
+      platformHome.hidden = true;
+      appScreen.hidden = false;
+      lunchNav.hidden = false;
+      appScreen.scrollTop = 0;
+      if (!readPreference()) {
+        window.setTimeout(() => {
+          if (!appScreen.hidden) startOnboarding(false);
+        }, 380);
+      }
+    }
+
+    function backToPlatform() {
+      if (overlay.classList.contains("open")) closeSheet();
+      appScreen.hidden = true;
+      lunchNav.hidden = true;
+      platformHome.hidden = false;
+      $(".platform-scroll", platformHome).scrollTop = 0;
+    }
+
+    renderHashtagOptions();
+    renderHardOptions();
+    updateRules();
+    syncRuleSheet();
+    syncOnboardingControls();
+    renderOnboardingStep();
+
+    $("#wowEntry").addEventListener("click", enterLunchPage);
+    $("#backToPlatform").addEventListener("click", backToPlatform);
+    $("#settingsButton").addEventListener("click", () => openSheet("settingsSheet"));
+    $("#ruleCard").addEventListener("click", () => startOnboarding(true));
+
+    $$("[data-close]").forEach((button) => button.addEventListener("click", closeSheet));
+
+    overlay.addEventListener("click", (event) => {
+      if (event.target === overlay) closeSheet();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && overlay.classList.contains("open")) closeSheet();
+      if (event.key === "Tab" && overlay.classList.contains("open") && activeSheet) {
+        const focusable = $$('button:not([disabled]), summary, input:not([disabled])', activeSheet)
+          .filter((node) => node.offsetParent !== null);
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    });
+
+    $$("[data-hard-type]", $("#hardTypeTabs")).forEach((button) => {
+      button.addEventListener("click", () => {
+        onboardingState.hardType = button.dataset.hardType;
+        renderHardOptions();
+        syncOnboardingControls();
+      });
+    });
+
+    $("#onboardingHardChoices").addEventListener("click", (event) => {
+      const button = event.target.closest("button");
+      if (!button) return;
+      if (button.dataset.onboardingHard) {
+        const name = button.dataset.onboardingHard;
+        const exists = onboardingState.hard.some((item) => item.name === name);
+        onboardingState.hard = exists
+          ? onboardingState.hard.filter((item) => item.name !== name)
+          : [...onboardingState.hard, { name, type: onboardingState.hardType }];
+        onboardingState.confirmedHard = true;
+      } else if (button.hasAttribute("data-onboarding-hard-custom")) {
+        onboardingState.customOpen = !onboardingState.customOpen;
+      } else if (button.hasAttribute("data-onboarding-hard-none")) {
+        onboardingState.hard = [];
+        onboardingState.confirmedHard = true;
+        onboardingState.customOpen = false;
+      }
+      syncOnboardingControls();
+      renderOnboardingStep();
+      if (onboardingState.customOpen) {
+        window.setTimeout(() => $("#customHardInput").focus(), 50);
+      }
+    });
+
+    $("#addCustomHard").addEventListener("click", () => {
+      const input = $("#customHardInput");
+      const name = input.value.trim();
+      if (!name) {
+        showToast("先写下不吃的食材");
+        input.focus();
+        return;
+      }
+      if (!onboardingState.hard.some((item) => item.name === name)) {
+        onboardingState.hard.push({ name, type: onboardingState.hardType });
+      }
+      input.value = "";
+      onboardingState.customOpen = false;
+      onboardingState.confirmedHard = true;
+      syncOnboardingControls();
+      renderOnboardingStep();
+    });
+
+    $("#customHardInput").addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        $("#addCustomHard").click();
+      }
+    });
+
+    $("#onboardingHashtags").addEventListener("click", (event) => {
+      const button = event.target.closest("[data-hashtag]");
+      if (!button) return;
+      const tag = button.dataset.hashtag;
+      if (onboardingState.hashtags.includes(tag)) {
+        onboardingState.hashtags = onboardingState.hashtags.filter((item) => item !== tag);
+      } else if (onboardingState.hashtags.length >= 5) {
+        showToast("最多选 5 个");
+        return;
+      } else {
+        onboardingState.hashtags.push(tag);
+      }
+      syncOnboardingControls();
+    });
+
+    $("#onboardingBudget").addEventListener("click", (event) => {
+      const button = event.target.closest("[data-budget]");
+      if (!button) return;
+      onboardingState.budgetPreset = button.dataset.budget;
+      updateBudgetFromPreset();
+      syncOnboardingControls();
+      if (onboardingState.budgetPreset === "custom") {
+        window.setTimeout(() => $("#budgetMinInput").focus(), 50);
+      }
+    });
+
+    $("#budgetMinInput").addEventListener("input", (event) => {
+      onboardingState.budgetMin = Number(event.target.value) || 0;
+    });
+
+    $("#budgetMaxInput").addEventListener("input", (event) => {
+      onboardingState.budgetMax = Number(event.target.value) || 0;
+    });
+
+    $("#onboardingRepeatFrequency").addEventListener("click", (event) => {
+      const button = event.target.closest("[data-repeat]");
+      if (!button) return;
+      onboardingState.repeatFrequency = button.dataset.repeat;
+      syncOnboardingControls();
+    });
+
+    $("#onboardingBack").addEventListener("click", () => {
+      onboardingState.step = Math.max(1, onboardingState.step - 1);
+      renderOnboardingStep();
+    });
+
+    $("#onboardingNext").addEventListener("click", () => {
+      if (onboardingState.step === 3) {
+        finishOnboarding();
+        return;
+      }
+      onboardingState.step += 1;
+      renderOnboardingStep();
+    });
+
+    $("#onboardingSkip").addEventListener("click", () => {
+      writePreference();
+      closeSheet();
+      showToast("好，先直接看看");
+    });
+
+    $$("[data-hard]", $("#hardChips")).forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const name = chip.dataset.hard;
+        const exists = state.hard.some((item) => item.name === name);
+        state.hard = exists
+          ? state.hard.filter((item) => item.name !== name)
+          : [...state.hard, { name, type: "不喜欢" }];
+        syncRuleSheet();
+      });
+    });
+
+    $("[data-hard-none]").addEventListener("click", () => {
+      state.hard = [];
+      syncRuleSheet();
+    });
+
+    $("#saveRulesButton").addEventListener("click", () => {
+      state.lightOil = $("#lightOilToggle").checked;
+      state.staple = $("#stapleToggle").checked;
+      state.noRepeat = $("#repeatToggle").checked;
+      writePreference();
+      updateRules();
+      closeSheet();
+      showToast("记住啦");
+    });
+
+    $("#skipRulesButton").addEventListener("click", () => {
+      closeSheet();
+      showToast("好，先直接看看");
+    });
+
+    $$("[data-feedback]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.feedbackMeal = button.dataset.feedback;
+        const meal = mealData[state.feedbackMeal];
+        $("#feedbackSubtitle").textContent = `关于「${meal.name}」，下次挑得更合口。`;
+        openSheet("feedbackSheet");
+      });
+    });
+
+    $$("[data-feedback-option]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const mealId = state.feedbackMeal;
+        const card = $(`.meal-card[data-meal="${mealId}"]`);
+        const feedbackType = button.dataset.feedbackOption;
+        const messages = {
+          category: "好，这类先缓缓",
+          cuisine: "这个菜系先少点",
+          oil: "收到，下次更清爽",
+          store: "这家店先少出现",
+          dish: "只换掉这一次"
+        };
+        const notices = {
+          category: "同类主菜已降权，最近两周先少出现。",
+          cuisine: "这个菜系已降权，其他口味不受影响。",
+          oil: "已加强清淡做法排序，正常饭菜也会被纳入。",
+          store: "只对这家店降权，不影响同类店铺排序。",
+          dish: "只移除这一道，不改变长期偏好。"
+        };
+        closeSheet();
+        $("#feedbackNoticeTitle").textContent = "已按你的反馈调整";
+        $("#feedbackNoticeBody").textContent = `${notices[feedbackType]} 排序不是广告位。`;
+        $("#feedbackNotice").hidden = false;
+        if (card) {
+          card.classList.add("is-removing");
+          window.setTimeout(() => {
+            card.hidden = true;
+            card.classList.remove("is-removing");
+            revealBackupIfNeeded();
+          }, 280);
+        }
+        showToast(messages[feedbackType]);
+      });
+    });
+
+    function revealBackupIfNeeded() {
+      const visible = $$(".meal-card:not([hidden]):not(.backup-card)").length;
+      const backup = $(".backup-card");
+      if (visible < 3 && backup && backup.hidden) {
+        backup.hidden = false;
+        backup.style.animation = "card-in .48s both";
+      } else if (visible === 0) {
+        $("#emptyState").style.display = "block";
+      }
+      renumberRanks();
+    }
+
+    function renumberRanks() {
+      $$(".meal-card:not([hidden])").slice(0, 3).forEach((card, index) => {
+        const rank = $(".rank-badge", card);
+        if (rank) rank.textContent = `TOP ${index + 1}`;
+      });
+    }
+
+    $("#feedbackNoticeClose").addEventListener("click", () => {
+      $("#feedbackNotice").hidden = true;
+    });
+
+    $$("[data-choose]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.activeMeal = button.dataset.choose;
+        const meal = mealData[state.activeMeal];
+        $("#orderMealName").textContent = meal.name;
+        $("#orderShopName").textContent = meal.shop;
+        $("#orderPrice").textContent = meal.price;
+        openSheet("orderSheet");
+      });
+    });
+
+    $("#confirmOrderButton").addEventListener("click", () => {
+      closeSheet();
+      showToast("选好啦，记得趁热吃");
+    });
+
+    $("#shuffleButton").addEventListener("click", () => {
+      appScreen.scrollTo({ top: Math.max(250, $(".meal-list").offsetTop - 120), behavior: "smooth" });
+      $$(".meal-card:not([hidden])").forEach((card, index) => {
+        card.style.animation = "none";
+        void card.offsetWidth;
+        card.style.animation = `card-in .4s ${index * .05}s both`;
+      });
+      showToast("还是这几道最合适");
+    });
+
+    $("#allNoButton").addEventListener("click", () => {
+      startOnboarding(true);
+      showToast("改改偏好，再挑一轮");
+    });
+
+    $("#emptyAdjustButton").addEventListener("click", () => startOnboarding(true));
+    $("#editPreferencesButton").addEventListener("click", () => startOnboarding(true));
+
+    $("#tagList").addEventListener("click", (event) => {
+      const button = event.target.closest("[data-remove-tag]");
+      if (!button) return;
+      const [type, value] = button.dataset.removeTag.split(":");
+      if (type === "hard") state.hard = state.hard.filter((item) => item.name !== value);
+      if (type === "hashtag") state.hashtags = state.hashtags.filter((item) => item !== value);
+      if (type === "repeat") {
+        state.repeatFrequency = "都可以";
+        state.noRepeat = false;
+      }
+      writePreference();
+      updateRules();
+      syncRuleSheet();
+      showToast("删掉啦");
+    });
+
+    $("#resetPreferencesButton").addEventListener("click", () => {
+      state.hard = [];
+      state.hashtags = [];
+      state.lightOil = false;
+      state.staple = false;
+      state.noRepeat = false;
+      state.budgetPreset = "25-35";
+      state.budgetMin = 25;
+      state.budgetMax = 35;
+      state.repeatFrequency = "都可以";
+      clearPreference();
+      updateRules();
+      syncRuleSheet();
+      showToast("清空啦，重新认识你");
+    });
+
+    $("#locationButton").addEventListener("click", () => {
+      showToast("当前地址：国贸 · 财富中心 A 座");
+    });
+
+    $$("[data-nav]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const labels = { orders: "订单页先留给你安心吃饭", profile: "我的页面暂不打扰午饭决策" };
+        showToast(labels[button.dataset.nav]);
+      });
+    });
+  </script>
+</body>
+</html>
